@@ -1,0 +1,112 @@
+name: phd-exam-portal
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-exam}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-exam}
+      POSTGRES_DB: ${POSTGRES_DB:-examportal}
+      # Deterministic collation; avoids index rebuilds on a glibc bump.
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=en-US --encoding=UTF8"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command:
+      - postgres
+      - -c
+      - max_connections=300          # 4 workers x (20 pool + 40 overflow) + headroom
+      - -c
+      - shared_buffers=256MB
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-exam} -d ${POSTGRES_DB:-examportal}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [examnet]
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command:
+      - redis-server
+      - --appendonly
+      - "no"
+      - --maxmemory
+      - 256mb
+      - --maxmemory-policy
+      - allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [examnet]
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_HOST: postgres
+      REDIS_HOST: redis
+    volumes:
+      - snapshots:/app/media/snapshots
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis:    { condition: service_healthy }
+    # Migrate, then seed, then serve. Seeding is idempotent, so a restart
+    # does not duplicate anything.
+    command: >
+      sh -c "alembic upgrade head &&
+             python seed_db.py &&
+             exec gunicorn -c gunicorn_conf.py app.main:app"
+    networks: [examnet]
+
+  coturn:
+    image: coturn/coturn:4.6-alpine
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./coturn/turnserver.conf:/etc/coturn/turnserver.conf:ro
+    command: ["-c", "/etc/coturn/turnserver.conf"]
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+      - "${HTTPS_PORT:-8443}:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - certbot-www:/var/www/certbot:ro
+      - certbot-conf:/etc/letsencrypt:ro
+    depends_on: [backend]
+    networks: [examnet]
+
+  # One-shot: `docker compose run --rm certbot` to issue or renew.
+  certbot:
+    image: certbot/certbot:latest
+    profiles: ["certs"]
+    volumes:
+      - certbot-www:/var/www/certbot
+      - certbot-conf:/etc/letsencrypt
+    entrypoint: >
+      sh -c "certbot certonly --webroot -w /var/www/certbot
+             -d $${CERTBOT_DOMAIN} --email $${CERTBOT_EMAIL}
+             --agree-tos --no-eff-email --non-interactive"
+    environment:
+      CERTBOT_DOMAIN: ${CERTBOT_DOMAIN:-exam.example.edu}
+      CERTBOT_EMAIL: ${CERTBOT_EMAIL:-admin@example.edu}
+
+volumes:
+  pgdata:
+  snapshots:
+  certbot-www:
+  certbot-conf:
+
+networks:
+  examnet:
+    driver: bridge

@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+backend/media/
+*.log
+.DS_Store
+nginx/conf.d/ssl.conf

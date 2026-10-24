@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Databases / local runtime data
+*.db
+*.sqlite
+*.sqlite3
+
+# Runtime uploads
+uploads/*
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+.antigravity/
+.antigravity-ide/
+
+# Temporary files
+scratch_docs_output.txt
+*.tmp
+*.log
+
+# Project archives / backups
+project_archive.zip
+project_archive/
+*.zip
+
+# Node
+node_modules/
+dist/
+
+# Local test files
+coverage/
+.pytest_cache/
+Application Details (23).xlsx
+
+# Live exam state (back this up, never commit it)
+data/runtime_state.json*
+
+# Reset archives — they hold candidate results. Back them up, never commit them.
+data/archive/

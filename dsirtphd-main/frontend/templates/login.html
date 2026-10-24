@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in — PhD Entrance Examination</title>
+  <meta name="description" content="Secure candidate login portal for the PhD Entrance Examination. Sign in with your registered email and issued credentials.">
+  <link rel="icon" type="image/png" href="/static/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css?v=20260926c">
+</head>
+
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <!-- Institutional letterhead. The emblem alone is kept as a fallback so
+           a missing banner never leaves the page unbranded. -->
+      <div style="text-align:center; margin-bottom:24px;">
+        <img src="/static/img/dsirt-letterhead-stacked.png"
+             alt="Dhanalakshmi Srinivasan Institute of Research and Technology — Deemed to be University, Perambalur"
+             style="width:100%; max-width:300px; height:auto; margin:0 auto; display:block;"
+             onerror="this.onerror=null; this.src='/static/img/logo.png'; this.style.maxWidth='none'; this.style.height='96px'; this.style.width='auto';">
+        <hr style="height:2px; border:0; margin:14px auto 0; max-width:420px;
+                   background:linear-gradient(to right, transparent, #b8893b 18%, #b8893b 82%, transparent);">
+      </div>
+      <div class="eyebrow">PhD Entrance Examination</div>
+      <h1>Secure login</h1>
+      <p class="sub">Sign in with the credentials issued by your department.</p>
+
+      <div class="form-error" id="loginError"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required autocomplete="username">
+        </div>
+        <div class="field">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label for="password">Password</label>
+            <button type="button" id="togglePasswordBtn" style="background:none; border:none; color:var(--text-faint); font-size:12px; cursor:pointer; padding:0;">Show password</button>
+          </div>
+          <input type="password" id="password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginSubmitBtn" style="width:100%; padding:12px;">Sign in</button>
+      </form>
+
+      <div id="demoLoginsBox" class="demo-logins" style="display: none; margin-top: 20px; padding: 12px; background: rgba(0, 0, 0, 0.025); border: 1px solid var(--border-subtle, #e2e8f0); border-radius: 8px; font-size: 12px;">
+        <div style="font-weight: 600; margin-bottom: 8px; color: var(--text-subtle, #475569); display: flex; align-items: center; justify-content: space-between;">
+          <span>Quick Demo Sign-In:</span>
+          <span style="font-size: 11px; font-weight: normal; color: var(--text-faint, #64748b);">Click to auto-fill</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <button type="button" class="btn btn-outline btn-sm quick-fill-btn" data-email="admin@examportal.edu" data-pass="Admin@123" style="text-align: left; font-size: 12px; padding: 7px 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-radius: 6px;">
+            <span><strong>Admin:</strong> admin@examportal.edu</span>
+            <span style="color: var(--text-faint); font-family: monospace;">Admin@123</span>
+          </button>
+          <button type="button" class="btn btn-outline btn-sm quick-fill-btn" data-email="candidate@examportal.edu" data-pass="dsirt@123" style="text-align: left; font-size: 12px; padding: 7px 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-radius: 6px;">
+            <span><strong>Candidate:</strong> candidate@examportal.edu</span>
+            <span style="color: var(--text-faint); font-family: monospace;">dsirt@123</span>
+          </button>
+          <button type="button" class="btn btn-outline btn-sm quick-fill-btn" data-email="setter@examportal.edu" data-pass="Setter@12345" style="text-align: left; font-size: 12px; padding: 7px 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-radius: 6px;">
+            <span><strong>Paper Setter:</strong> setter@examportal.edu</span>
+            <span style="color: var(--text-faint); font-family: monospace;">Setter@12345</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="form-hint" style="margin-top:16px; text-align: center; color: var(--text-faint); font-size: 13px;">
+        If you have trouble signing in, contact your examination coordinator.
+      </p>
+    </div>
+  </div>
+
+  <script src="/static/js/login.js"></script>
+<!-- ATARAXIA-CREDIT-START — self-contained; every class is `atx-`.
+     TO ADD A TEAMMATE: add one line to ATX_TEAM near the bottom. -->
+<div class="atx-badge">
+  <span>by</span>
+  <button type="button" class="atx-name" id="atxOpen">Ataraxia</button>
+</div>
+
+<div class="atx-overlay" id="atxOverlay" role="dialog" aria-modal="true" aria-labelledby="atxTitle">
+  <div class="atx-panel">
+    <button type="button" class="atx-close" id="atxClose" aria-label="Close">&times;</button>
+    <div class="atx-head">
+      <div class="atx-mark">A</div>
+      <div>
+        <h2 id="atxTitle">Ataraxia</h2>
+        <p>The team behind this portal</p>
+      </div>
+    </div>
+    <div class="atx-grid" id="atxGrid"></div>
+    <p class="atx-foot">Ph.D. Entrance Examination &amp; Live Proctoring Portal</p>
+  </div>
+</div>
+
+<style>
+/* ---- corner badge --------------------------------------------------
+   Fixed, so it is visible without scrolling on a long dashboard. Small
+   and low-contrast until hovered, so it never competes with the page.
+   z-index sits below the app's modals (200) and its own panel (400). */
+.atx-badge{
+  position:fixed; right:14px; bottom:12px; z-index:90;
+  display:flex; align-items:center; gap:5px;
+  padding:5px 11px 6px;
+  border:1px solid #e2e8f0; border-radius:999px;
+  background:rgba(255,255,255,.92); backdrop-filter:blur(6px);
+  box-shadow:0 1px 3px rgba(15,23,42,.08);
+  font-size:11px; color:#94a3b8; letter-spacing:.01em;
+  opacity:.72; transition:opacity .18s, box-shadow .18s, transform .18s;
+}
+.atx-badge:hover{ opacity:1; box-shadow:0 4px 10px rgba(15,23,42,.12); transform:translateY(-1px); }
+.atx-name{
+  font:inherit; font-weight:700; font-size:11px;
+  letter-spacing:.07em; text-transform:uppercase;
+  color:#4f46e5; background:none; border:0; padding:0; cursor:pointer;
+}
+.atx-name:hover,.atx-name:focus-visible{ color:#4338ca; outline:none; text-decoration:underline; }
+
+/* Out of the way on phones, where screen space is tight. */
+@media (max-width:640px){
+  .atx-badge{ right:10px; bottom:8px; padding:4px 9px 5px; font-size:10px; opacity:.6; }
+  .atx-name{ font-size:10px; }
+}
+@media print{ .atx-badge{ display:none !important; } }
+
+/* ---- panel ---------------------------------------------------------- */
+.atx-overlay{
+  position:fixed; inset:0; z-index:400;
+  display:none; align-items:center; justify-content:center; padding:20px;
+  background:rgba(2,6,23,.82); backdrop-filter:blur(4px);
+}
+.atx-overlay.atx-on{ display:flex; animation:atxFade .18s ease both; }
+@keyframes atxFade{ from{opacity:0} to{opacity:1} }
+
+.atx-panel{
+  position:relative; width:100%; max-width:480px;
+  background:#fff; border-radius:20px; padding:30px 32px 24px;
+  box-shadow:0 25px 50px -12px rgba(2,6,23,.5);
+  animation:atxRise .22s cubic-bezier(.2,.7,.3,1) both;
+}
+@keyframes atxRise{ from{opacity:0; transform:translateY(12px) scale(.98)} to{opacity:1; transform:none} }
+
+.atx-close{
+  position:absolute; top:12px; right:14px;
+  width:32px; height:32px; border:0; border-radius:8px;
+  background:none; color:#94a3b8; font-size:24px; line-height:1; cursor:pointer;
+}
+.atx-close:hover{ background:#f1f5f9; color:#0f172a; }
+
+.atx-head{ display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+.atx-mark{
+  flex:0 0 auto; width:44px; height:44px; border-radius:13px;
+  display:grid; place-items:center;
+  background:linear-gradient(135deg,#4f46e5,#7c3aed);
+  color:#fff; font-size:21px; font-weight:800;
+}
+.atx-head h2{ margin:0; font-size:18px; letter-spacing:.04em; color:#0f172a; }
+.atx-head p { margin:2px 0 0; font-size:12px; color:#94a3b8; }
+
+.atx-grid{ display:grid; gap:9px; }
+.atx-card{
+  display:flex; align-items:center; gap:12px;
+  padding:10px 12px; border:1px solid #e2e8f0; border-radius:12px;
+  color:inherit; text-decoration:none; background:#fff;
+  transition:border-color .16s, background .16s, transform .16s;
+}
+.atx-card:hover{ border-color:#c7d2fe; background:#f8fafc; }
+.atx-av{
+  flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+  object-fit:cover; background:#eef2ff;
+  display:grid; place-items:center; font-size:13px; font-weight:700; color:#4f46e5;
+}
+.atx-who{ flex:1 1 auto; min-width:0; }
+.atx-who b{ display:block; font-size:13px; color:#0f172a; }
+.atx-who span{ display:block; font-size:11.5px; color:#94a3b8; }
+.atx-links{ flex:0 0 auto; display:flex; gap:6px; }
+.atx-chip{
+  display:inline-block; padding:4px 10px 5px; border-radius:999px;
+  border:1px solid #e2e8f0; background:#fff;
+  font-size:11px; font-weight:600; letter-spacing:.02em;
+  color:#475569; text-decoration:none; white-space:nowrap;
+  transition:border-color .15s, background .15s, color .15s;
+}
+.atx-chip:hover{ border-color:#c7d2fe; background:#eef2ff; color:#4f46e5; }
+.atx-chip--site{ border-color:#c7d2fe; background:#eef2ff; color:#4f46e5; }
+.atx-chip--site:hover{ background:#4f46e5; border-color:#4f46e5; color:#fff; }
+
+.atx-foot{
+  margin:18px 0 0; padding-top:13px; border-top:1px solid #f1f5f9;
+  text-align:center; font-size:11px; color:#cbd5e1;
+}
+@media (max-width:520px){
+  .atx-panel{ padding:24px 18px 18px; }
+  .atx-card{ flex-wrap:wrap; }
+  .atx-links{ width:100%; padding-left:50px; }
+}
+</style>
+
+<script>
+(() => {
+  // ── ADD A TEAMMATE HERE ────────────────────────────────────────────
+  const ATX_TEAM = [
+    // `site` is optional — leave it out and only the GitHub chip shows.
+    { name: 'Harsith G', user: 'harsith-g',   site: 'https://harsith-portfolio.vercel.app/' },
+    { name: 'Kevin',     user: 'kevin11-afk' },
+  ];
+  // ───────────────────────────────────────────────────────────────────
+  const grid = document.getElementById('atxGrid');
+  const overlay = document.getElementById('atxOverlay');
+  const openBtn = document.getElementById('atxOpen');
+  const closeBtn = document.getElementById('atxClose');
+  if (!grid || !overlay) return;
+
+  const initials = n => n.trim().split(/\s+/).map(w => w[0]).join('').slice(0,2).toUpperCase();
+
+  grid.innerHTML = ATX_TEAM.map(m => `
+    <div class="atx-card">
+      <img class="atx-av" src="https://github.com/${m.user}.png?size=120" alt=""
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),
+                    {className:'atx-av',textContent:'${initials(m.name)}'}))">
+      <span class="atx-who"><b>${m.name}</b><span>@${m.user}</span></span>
+      <span class="atx-links">
+        ${m.site ? `<a class="atx-chip atx-chip--site" href="${m.site}" target="_blank" rel="noopener noreferrer">Portfolio</a>` : ''}
+        <a class="atx-chip" href="https://github.com/${m.user}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </span>
+    </div>`).join('');
+
+  const show = () => { overlay.classList.add('atx-on'); closeBtn.focus(); };
+  const hide = () => { overlay.classList.remove('atx-on'); openBtn.focus(); };
+  openBtn.addEventListener('click', show);
+  closeBtn.addEventListener('click', hide);
+  overlay.addEventListener('click', e => { if (e.target === overlay) hide(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('atx-on')) hide();
+  });
+})();
+</script>
+<!-- ATARAXIA-CREDIT-END -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Python / Backend
+venv/
+__pycache__/
+*.pyc
+.gunicorn/
+
+# Node / Frontend
+node_modules/
+npm-debug.log
+.npm/
+
+# Passwords and Secrets
+.env
+*.pem
+*.key
+
+# Archives
+*.tar.gz
+*.zip

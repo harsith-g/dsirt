@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <title>Examination — Ph.D Entrance</title>
+  <meta name="description" content="Ph.D Entrance Examination — secure, proctored online examination portal.">
+  <link rel="icon" type="image/png" href="/static/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css?v=20260926c">
+</head>
+<body class="exam-page">
+
+  <!-- Loading -->
+  <div id="loadingScreen" class="fullscreen-overlay center-overlay">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <div id="loadingText">Loading your examination…</div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 1: Instructions (before Paper 1)                         -->
+  <!-- ================================================================ -->
+  <div id="instructionsScreen" class="fullscreen-overlay" style="display:none;">
+    <div class="prose-card">
+      <div class="prose-header">
+        <img src="/static/img/logo.png" alt="DSIRT Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h1 class="prose-title">Examination Instructions</h1>
+        <p class="prose-subtitle">Ph.D Entrance Examination — please read carefully before proceeding</p>
+      </div>
+
+      <div class="prose-body" id="instrScrollBody">
+        <h2>How the examination works</h2>
+        <ol>
+          <li><strong>Paper 1 — Research Methodology:</strong> <span class="js-p1count">50</span> MCQ questions, <strong><span class="js-p1min">60</span> minutes</strong>.</li>
+          <li>After you submit Paper 1 (or its time ends) there is a <strong><span class="js-breakmin">15</span>-minute break</strong>. You will be signed out.</li>
+          <li>After the break, <strong>sign in again</strong>, choose your domain and take <strong>Paper 2 — Domain Specific</strong>: 50 MCQ questions, <strong><span class="js-p2min">60</span> minutes</strong>.</li>
+          <li>Each correct answer carries <strong>1 mark</strong>. There is <strong>no negative marking</strong>.</li>
+          <li>Your answer is <strong>saved automatically</strong> the moment you tap an option. The green "Saved" sign at the top confirms it.</li>
+          <li>When a phase's time runs out, your saved answers are <strong>submitted automatically</strong>.</li>
+          <li>Once a phase is submitted, its answers <strong>cannot be changed</strong>.</li>
+          <li>Use the question numbers (navigator) to jump to any question, and "Mark for review" to flag questions you want to revisit.</li>
+          <li>If your internet drops, keep working — answers are kept on your device and sent as soon as the connection returns. If the page closes, simply sign in again: you continue where you stopped, with the same time.</li>
+          <li>Your <strong>camera must stay on</strong> during both phases.</li>
+        </ol>
+
+        <h2>During the examination</h2>
+        <ul>
+          <li>Do not switch tabs, open other apps or minimise the browser.</li>
+          <li>On a computer, stay in full-screen mode.</li>
+          <li>Do not copy examination content. Right-click is disabled.</li>
+          <li>These events are recorded as <strong>warnings</strong> for the examiner to review. They never submit your exam.</li>
+        </ul>
+
+        <h2>Results</h2>
+        <ul>
+          <li>Results are processed by the examination administrator and are not shown during the exam.</li>
+        </ul>
+      </div>
+
+      <div class="prose-footer">
+        <label class="prose-ack-label" id="instrAckLabel">
+          <input type="checkbox" id="instrAckCheck">
+          I have read and understood all the examination instructions.
+        </label>
+        <button class="btn btn-primary prose-cta" id="instrAcknowledgeBtn" disabled>Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 2: Monitoring rules                                       -->
+  <!-- ================================================================ -->
+  <div id="violationRulesScreen" class="fullscreen-overlay" style="display:none;">
+    <div class="prose-card">
+      <div class="prose-header">
+        <img src="/static/img/logo.png" alt="DSIRT Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h1 class="prose-title">Monitoring Rules</h1>
+        <p class="prose-subtitle">The following events are recorded by the examination system</p>
+      </div>
+      <div class="prose-body">
+        <div class="rule-card rule-warn"><div class="rule-icon">⚠️</div><div><strong>Switching tab / app</strong><p>Leaving the exam page is recorded as a warning.</p></div></div>
+        <div class="rule-card rule-warn"><div class="rule-icon">⚠️</div><div><strong>Leaving full-screen (computers)</strong><p>Recorded as a warning. You will be asked to return.</p></div></div>
+        <div class="rule-card rule-warn"><div class="rule-icon">⚠️</div><div><strong>Copying / right-click</strong><p>Blocked and recorded.</p></div></div>
+        <div class="rule-card rule-info"><div class="rule-icon">📹</div><div><strong>Camera</strong><p>Your camera is live to the examiner throughout the exam. Keep your face visible and the room lit.</p></div></div>
+        <div class="rule-important">
+          <strong>Important:</strong> warnings are reviewed by a human examiner. The system never submits or ends your exam because of a warning.
+        </div>
+      </div>
+      <div class="prose-footer">
+        <button class="btn btn-primary prose-cta" id="violRulesNextBtn">Proceed to Camera Check →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 3: System check with live camera preview                 -->
+  <!-- ================================================================ -->
+  <div id="systemCheckModal" class="syscheck-overlay" style="display:none;">
+    <div class="syscheck-card">
+      <div class="syscheck-header">
+        <img src="/static/img/logo.png" alt="University Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h2 class="syscheck-title">Camera Check</h2>
+        <p class="syscheck-subtitle" id="syscheckSubtitle">Allow camera access to continue</p>
+      </div>
+
+      <div class="syscheck-camera-preview-wrap">
+        <video id="syscheckCameraPreview" class="syscheck-camera-preview" autoplay muted playsinline></video>
+        <div class="syscheck-camera-overlay" id="syscheckCameraOverlay">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+          <span style="margin-top:8px; font-size:0.82rem; opacity:0.7">Requesting camera access…</span>
+        </div>
+      </div>
+
+      <div class="syscheck-rows">
+        <div class="syscheck-row" id="syscheck-camera">
+          <div class="syscheck-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+          </div>
+          <div class="syscheck-info">
+            <div class="syscheck-label">Camera</div>
+            <div class="syscheck-status pending" id="syscheckCameraStatus">Requesting access…</div>
+          </div>
+        </div>
+      </div>
+
+      <button id="syscheckRetryBtn" class="btn" style="width:100%; margin-top:8px; display:none;">🔄 Retry camera</button>
+      <div class="form-error syscheck-form-error" id="syscheckError" style="display:none;"></div>
+
+      <button id="syschecCTA" class="syscheck-cta" disabled>Enter Exam</button>
+
+      <p class="syscheck-footnote">Camera stays on during the exam for live proctoring.</p>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 4: Domain selection (start of Paper 2)                   -->
+  <!-- ================================================================ -->
+  <div id="domainSelectScreen" class="fullscreen-overlay" style="display:none;">
+    <div class="domain-select-card-full">
+      <div class="syscheck-header">
+        <img src="/static/img/logo.png" alt="DSIRT Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h2 class="syscheck-title">Select Your Domain</h2>
+        <p class="syscheck-subtitle">Paper 2 — Domain Specific · <span class="js-p2min">60</span> minutes</p>
+      </div>
+
+      <p class="domain-help">
+        Choose the domain of your department.
+        <strong>This selection is permanent and cannot be changed.</strong>
+      </p>
+
+      <select id="domainSelect" class="input domain-dropdown">
+        <option value="">— Select your domain —</option>
+        <optgroup label="Agriculture &amp; Sub-Domains">
+          <option value="Agriculture">Agriculture (General / Core)</option>
+          <option value="Agricultural - Agronomy">Agriculture — Agronomy</option>
+          <option value="Agricultural - Entomology">Agriculture — Entomology</option>
+          <option value="Agricultural - Pathology">Agriculture — Pathology</option>
+        </optgroup>
+        <option value="Bio-Science">Bio-Science</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Commerce &amp; Management Studies">Commerce &amp; Management Studies</option>
+        <option value="English">English</option>
+        <option value="Mathematics">Mathematics</option>
+        <option value="Tamil">Tamil</option>
+      </select>
+      <div id="registeredDomainNote" class="domain-note" style="display:none;"></div>
+
+      <div class="form-error" id="domainError" style="margin-top:10px; display:none;"></div>
+
+      <button class="btn btn-primary" id="confirmDomainBtn" style="width:100%; margin-top:1.2rem;">Confirm selection</button>
+
+      <div id="domainConfirmCard" class="domain-confirm-card" style="display:none;">
+        <p>
+          You have selected: <strong id="domainSelectedName"></strong><br>
+          <span class="muted-small">This cannot be changed once confirmed. Your Paper 2 timer starts now.</span>
+        </p>
+        <div class="domain-confirm-actions">
+          <button class="btn" id="cancelDomainBtn">← Change</button>
+          <button class="btn btn-primary" id="confirmDomainFinalBtn">✓ Confirm &amp; Begin Paper 2</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 5: Exam                                                   -->
+  <!-- ================================================================ -->
+  <div class="exam-shell" id="examScreen" style="display:none;">
+
+    <div class="exam-topbar">
+      <div class="title-block">
+        <h1>
+          <img src="/static/img/logo.png" alt="" class="exam-topbar-logo" onerror="this.style.display='none'">
+          <span class="topbar-title-text">PhD Entrance Examination</span>
+        </h1>
+        <div class="candidate-name" id="candidateName"></div>
+      </div>
+      <div class="topbar-center" id="phaseLabel"></div>
+      <div class="topbar-status">
+        <div class="save-status" id="saveStatus" title="Answer saving status">
+          <span class="save-dot"></span><span class="save-text">Saved</span>
+        </div>
+        <div class="strike-dots" title="Warnings recorded (for the examiner's review only)">
+          <span class="label">Warnings <span id="strikeCount">0</span></span>
+          <span class="strike-dot"></span><span class="strike-dot"></span><span class="strike-dot"></span>
+        </div>
+        <div class="timer-wrap">
+          <div class="timer" id="timerDisplay">--:--</div>
+          <div class="timer-sub" id="timerEndLabel"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offline-banner" id="offlineBanner" style="display:none;">
+      ⚠ Connection lost — keep answering. Your answers are stored on this device and will be sent automatically.
+    </div>
+
+    <div class="exam-body">
+
+      <!-- LEFT: question -->
+      <div class="question-column">
+        <div class="phase-section-header">
+          <div class="phase-badge" id="phaseBadge">Paper 1 — Research Methodology</div>
+          <div class="phase-count" id="phaseCount"></div>
+        </div>
+
+        <div class="question-card" id="questionCard">
+          <div class="question-status-bar">
+            <div class="question-meta" id="questionMeta">Loading…</div>
+            <div class="question-status-badge" id="questionStatusBadge"></div>
+          </div>
+          <div class="question-text" id="questionText">Loading question…</div>
+
+          <div id="mcqOptions" class="mcq-options" role="radiogroup" aria-labelledby="questionText"></div>
+          <div class="written-answer" id="writtenAnswerWrap" style="display:none;">
+            <textarea id="writtenAnswerInput" placeholder="Write your answer here…"></textarea>
+          </div>
+
+          <!-- Navigation only. Submit is deliberately NOT here (see submit panel). -->
+          <div class="question-actions" id="questionActions">
+            <button class="btn nav-btn" id="prevBtn">← Previous</button>
+            <button class="btn nav-btn review-btn" id="reviewBtn">☆ Mark for review</button>
+            <button class="btn btn-primary nav-btn" id="nextBtn">Save &amp; Next →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: camera + navigator -->
+      <div class="sidebar">
+        <div class="sidebar-section webcam-section">
+          <div class="webcam-header">
+            <span class="webcam-live-dot" id="webcamLiveDot"></span>
+            <h2 style="margin:0;">Camera</h2>
+          </div>
+          <div class="webcam-pip" id="webcamPip">
+            <video id="webcamVideo" autoplay muted playsinline></video>
+            <div class="pip-status" id="webcamStatus">Starting camera…</div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h2>Question navigator</h2>
+          <div class="legend">
+            <div class="legend-item"><span class="legend-swatch nav-answered-swatch"></span> Answered</div>
+            <div class="legend-item"><span class="legend-swatch nav-review-swatch"></span> Marked for review</div>
+            <div class="legend-item"><span class="legend-swatch nav-unanswered-swatch"></span> Not answered</div>
+            <div class="legend-item"><span class="legend-swatch nav-current-swatch"></span> Current</div>
+          </div>
+          <div class="nav-grid" id="navGrid"></div>
+        </div>
+      </div>
+
+      <!-- SEPARATE submit panel -->
+      <div class="submit-panel" id="submitPanel">
+        <div class="submit-panel-info">
+          <div class="submit-panel-title" id="submitPanelTitle">Finished Paper 1?</div>
+          <div class="submit-panel-sub" id="submitPanelSub">Answered 0 of 50</div>
+        </div>
+        <button class="btn submit-final-btn" id="submitPhaseBtn">Submit Paper 1</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  MODAL: warning                                                   -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="warningModal">
+    <div class="modal-box modal-box-strike">
+      <div class="modal-icon">⚠️</div>
+      <h2>Warning recorded</h2>
+      <p id="warningModalBody">A monitoring event has been recorded.</p>
+      <div class="modal-note">This event is logged for the examiner. Your examination continues normally.</div>
+      <button class="btn btn-primary" id="warningModalOkBtn" style="width:100%; margin-top:8px;">Return to examination →</button>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  MODAL: submit confirmation                                       -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="submitConfirmModal">
+    <div class="modal-box modal-box-confirm">
+      <h2 id="submitConfirmTitle">Submit Paper 1?</h2>
+      <div id="submitConfirmBody" class="submit-confirm-body"></div>
+      <label class="submit-confirm-check">
+        <input type="checkbox" id="submitConfirmCheck"> I understand I cannot change my answers after submitting.
+      </label>
+      <div class="modal-actions">
+        <button class="btn" id="submitCancelBtn">Cancel — keep answering</button>
+        <button class="btn submit-final-btn" id="submitConfirmBtn" disabled>Yes, submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 6: terminal / break                                       -->
+  <!-- ================================================================ -->
+  <div class="terminal-shell" id="terminalScreen" style="display:none;">
+    <div class="terminal-card" id="terminalCard">
+      <img src="/static/img/logo.png" alt="" class="terminal-logo" onerror="this.style.display='none'">
+      <h1 id="terminalTitle">Examination Ended</h1>
+      <p id="terminalBody" style="white-space:pre-line;"></p>
+      <div id="terminalCountdown" class="break-countdown" style="display:none;"></div>
+      <button class="btn btn-primary" id="terminalBtn" style="display:none; margin-top:1rem;"></button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var c = document.getElementById('instrAckCheck');
+      var b = document.getElementById('instrAcknowledgeBtn');
+      if (c && b) c.addEventListener('change', function () { b.disabled = !c.checked; });
+      var p = document.getElementById('syscheckCameraPreview');
+      var o = document.getElementById('syscheckCameraOverlay');
+      if (p && o) p.addEventListener('playing', function () { o.style.display = 'none'; });
+      var sc = document.getElementById('submitConfirmCheck');
+      var sb = document.getElementById('submitConfirmBtn');
+      if (sc && sb) sc.addEventListener('change', function () { sb.disabled = !sc.checked; });
+    })();
+  </script>
+  <script src="/static/js/proctor.js?v=20260926c"></script>
+  <script src="/static/js/exam.js?v=20260926c"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Candidate Sign In &middot; {{ app_name }}{% endblock %}
+
+{% block body %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-head">
+      <img class="logo" src="{{ logo_url }}" alt="{{ app_name }}">
+      <h1>Candidate Sign In</h1>
+      <p>Ph.D. Entrance Examination 2026</p>
+    </div>
+
+    <div class="card accent">
+      <div class="alert err" id="error" hidden role="alert"></div>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Registered email address</label>
+          <input type="email" id="email" name="email" autocomplete="username"
+                 inputmode="email" autocapitalize="none" spellcheck="false"
+                 required autofocus placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password"
+                 autocomplete="current-password" required>
+        </div>
+        <div class="field">
+          <button class="btn block" type="submit" id="submitBtn">Sign in</button>
+        </div>
+      </form>
+      <p class="field-hint">
+        Use the email address on your Ph.D. application. If you cannot sign in,
+        contact the examination cell &mdash; do not create a second account.
+      </p>
+    </div>
+
+    <p class="auth-foot">
+      Administrator? <a href="/admin/login">Use the staff sign-in page</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var form = document.getElementById("loginForm");
+  var errorBox = document.getElementById("error");
+  var button = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    Portal.hideAlert(errorBox);
+    button.disabled = true;
+    button.textContent = "Signing in…";
+    try {
+      var result = await Portal.api("/api/auth/candidate/login", {
+        method: "POST",
+        body: {
+          email: document.getElementById("email").value.trim(),
+          password: document.getElementById("password").value,
+        },
+      });
+      window.location.href = result.redirect || "/dashboard";
+    } catch (err) {
+      Portal.showAlert(errorBox, err.message);
+      button.disabled = false;
+      button.textContent = "Sign in";
+    }
+  });
+})();
+</script>
+{% endblock %}

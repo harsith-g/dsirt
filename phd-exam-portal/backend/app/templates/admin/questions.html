@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}Question bank{% endblock %}
+{% block topbar %}{% set active='questions' %}{% include "partials/admin_topbar.html" with context %}{% endblock %}
+
+{% block body %}
+<div class="shell">
+  <div class="grid cols-2">
+    <div class="card accent">
+      <h2>Import questions</h2>
+      <p class="sub">CSV or XLSX. The file is validated completely before anything is written.</p>
+
+      <div class="alert info small">
+        <strong>Two layouts are accepted.</strong><br>
+        <strong>Compact</strong> &mdash; what the supplied papers use:
+        <code>question_number, question_text, option_a&ndash;d, correct_answer</code>.
+        It says nothing about placement, so choose the phase and domain below.<br>
+        <strong>Full</strong> &mdash; carries
+        <code>phase</code> and <code>domain_code</code> on every row; the
+        selections below are then ignored. Download the template for the exact header.
+      </div>
+
+      <form id="importForm">
+        <div class="field">
+          <label for="file">Question file</label>
+          <input type="file" id="file" name="file" accept=".csv,.xlsx,.xls" required>
+        </div>
+
+        <div class="grid cols-2" style="gap:14px;margin-top:16px">
+          <div class="field" style="margin:0">
+            <label for="phase">Phase <span class="muted">(compact files)</span></label>
+            <select id="phase" name="phase">
+              <option value="PHASE_2" selected>Phase 2 &mdash; domain paper</option>
+              <option value="PHASE_1">Phase 1 &mdash; common paper</option>
+            </select>
+          </div>
+          <div class="field" style="margin:0">
+            <label for="domain_code">Domain <span class="muted">(Phase 2 only)</span></label>
+            <select id="domain_code" name="domain_code">
+              <option value="">Loading&hellip;</option>
+            </select>
+          </div>
+          <div class="field" style="margin:0">
+            <label for="marks">Marks per question</label>
+            <input type="number" id="marks" name="marks" value="1" min="0.25" step="0.25">
+          </div>
+          <div class="field" style="margin:0">
+            <label for="negative_marks">Negative marks</label>
+            <input type="number" id="negative_marks" name="negative_marks"
+                   value="0" min="0" step="0.25">
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:18px">
+          <button class="btn" type="submit" id="importBtn">Validate &amp; import</button>
+          <a class="btn ghost" href="/api/admin/questions/template">Download template</a>
+        </div>
+      </form>
+
+      <div id="importResult" style="margin-top:18px"></div>
+    </div>
+
+    <div class="card">
+      <h2>Current bank</h2>
+      <p class="sub">A domain with no active questions is hidden from Phase&nbsp;2 selection.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Domain</th><th class="right">Questions</th><th>Status</th></tr></thead>
+          <tbody id="domainRows"><tr><td colspan="4" class="loading">Loading&hellip;</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var form = document.getElementById("importForm");
+  var button = document.getElementById("importBtn");
+  var resultBox = document.getElementById("importResult");
+  var phaseSel = document.getElementById("phase");
+  var domainSel = document.getElementById("domain_code");
+
+  function syncDomainEnabled() {
+    var phase2 = phaseSel.value === "PHASE_2";
+    domainSel.disabled = !phase2;
+    if (!phase2) domainSel.value = "";
+  }
+  phaseSel.addEventListener("change", syncDomainEnabled);
+
+  async function loadDomains() {
+    try {
+      var domains = await Portal.api("/api/admin/domains");
+
+      domainSel.innerHTML =
+        '<option value="">-- select a domain --</option>' +
+        domains.map(function (d) {
+          return '<option value="' + Portal.escapeHtml(d.code) + '">' +
+            Portal.escapeHtml(d.name) + " (" + d.code + ")</option>";
+        }).join("");
+      syncDomainEnabled();
+
+      document.getElementById("domainRows").innerHTML = domains.map(function (d) {
+        return "<tr><td class='mono'>" + Portal.escapeHtml(d.code) + "</td>" +
+          "<td>" + Portal.escapeHtml(d.name) + "</td>" +
+          "<td class='right'>" + d.question_count + "</td>" +
+          "<td>" + (d.question_count
+            ? '<span class="pill ok">selectable</span>'
+            : '<span class="pill err">no questions</span>') + "</td></tr>";
+      }).join("");
+    } catch (err) {
+      document.getElementById("domainRows").innerHTML =
+        '<tr><td colspan="4" class="alert err">' + Portal.escapeHtml(err.message) + "</td></tr>";
+    }
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    var input = document.getElementById("file");
+    if (!input.files.length) return;
+
+    if (phaseSel.value === "PHASE_2" && !domainSel.value) {
+      resultBox.innerHTML =
+        '<div class="alert warn">Choose a domain for a Phase 2 import, ' +
+        "or switch the phase to Phase 1.</div>";
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Validating…";
+    resultBox.innerHTML = "";
+
+    var data = new FormData();
+    data.append("file", input.files[0]);
+    data.append("phase", phaseSel.value);
+    data.append("domain_code", domainSel.value);
+    data.append("marks", document.getElementById("marks").value || "1");
+    data.append("negative_marks", document.getElementById("negative_marks").value || "0");
+
+    try {
+      var report = await Portal.api("/api/admin/questions/import", { method: "POST", body: data });
+      var html = "";
+      if (report.ok) {
+        html += '<div class="alert ok"><strong>Imported ' + report.imported + " question(s)</strong> " +
+          "from " + report.total_rows + " row(s).";
+        if (report.duplicates_in_db) html += " " + report.duplicates_in_db + " already in the bank.";
+        if (report.duplicates_in_file) html += " " + report.duplicates_in_file + " duplicated inside the file.";
+        html += "</div>";
+      } else {
+        html += '<div class="alert err"><strong>Rejected — nothing was written.</strong> ' +
+          report.errors.length + " problem(s) found:</div>" +
+          '<div class="table-wrap"><table><thead><tr><th>Row</th><th>Column</th>' +
+          "<th>Problem</th></tr></thead><tbody>" +
+          report.errors.map(function (e) {
+            return "<tr><td class='mono'>" + e.row + "</td><td class='mono'>" +
+              Portal.escapeHtml(e.column || "—") + "</td><td>" +
+              Portal.escapeHtml(e.message) + "</td></tr>";
+          }).join("") + "</tbody></table></div>";
+      }
+      if (report.warnings && report.warnings.length) {
+        html += '<div class="alert warn" style="margin-top:12px"><strong>Withheld / notes</strong><ul class="tick">' +
+          report.warnings.map(function (w) { return "<li>" + Portal.escapeHtml(w) + "</li>"; }).join("") +
+          "</ul></div>";
+      }
+      resultBox.innerHTML = html;
+      loadDomains();
+    } catch (err) {
+      resultBox.innerHTML = '<div class="alert err">' + Portal.escapeHtml(err.message) + "</div>";
+    } finally {
+      button.disabled = false;
+      button.textContent = "Validate & import";
+    }
+  });
+
+  loadDomains();
+})();
+</script>
+{% endblock %}

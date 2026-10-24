@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Examination in progress{% endblock %}
+
+{% block body %}
+<div id="bootScreen">
+  <div class="card" style="max-width:480px;margin:90px auto;text-align:center">
+    <h2>Preparing your examination</h2>
+    <p class="muted small">Requesting camera access and loading your paper&hellip;</p>
+    <p class="muted small">Allow camera access when your browser asks. The examination cannot start without it.</p>
+  </div>
+</div>
+
+<div id="examBody" hidden>
+  <div class="exam-header">
+    <img class="logo" src="{{ logo_url }}" alt="{{ app_name }}">
+    <div class="exam-id">
+      <div class="who">{{ candidate.registration_number }} &middot; {{ candidate.full_name }}</div>
+      <div class="phase" id="phaseLabel">Examination</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="statuses">
+      <span><span class="dot idle" id="camDot"></span> <span id="camState">Camera</span></span>
+      <span><span class="dot idle" id="linkDot"></span> <span id="linkState">Connecting</span></span>
+      <span id="modeState">Live</span>
+      <span>Violations: <strong id="violationCount">0</strong></span>
+    </div>
+    <div class="timer" id="timer" role="timer" aria-live="off">--:--</div>
+    <button class="btn danger" id="submitBtn" type="button">Submit</button>
+  </div>
+
+  <div class="shell wide">
+    <div class="alert warn" id="fullscreenPrompt" hidden>
+      You have left full screen. This has been recorded.
+      <button class="btn sm" id="resumeFullscreen" type="button" style="margin-left:10px">
+        Return to full screen
+      </button>
+    </div>
+    <div class="alert info" id="flash" hidden></div>
+
+    <div class="exam-layout">
+      <div>
+        <div id="questionArea"></div>
+        <div class="exam-actions">
+          <button class="btn ghost" id="prevBtn" type="button">&larr; Previous</button>
+          <button class="btn ghost" id="reviewToggle" type="button">Mark for review</button>
+          <div class="spacer"></div>
+          <span class="small muted" id="saveState" aria-live="polite">All answers saved</span>
+          <button class="btn" id="nextBtn" type="button">Next &rarr;</button>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>Question palette</h3>
+          <div class="palette" id="palette"></div>
+          <div class="legend">
+            <span><i class="swatch" style="background:#e6f6ec;border-color:#a3d6b5"></i> Answered</span>
+            <span><i class="swatch" style="background:#fff5e0;border-color:#f0d9a8"></i> For review</span>
+            <span><i class="swatch"></i> Not answered</span>
+          </div>
+          <div class="divider"></div>
+          <div class="small muted">
+            Answered <strong id="answeredCount">0</strong> of <strong id="totalCount">0</strong><br>
+            Marked for review: <strong id="reviewCount">0</strong>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Rules in force</h3>
+          <ul class="tick small muted">
+            <li>The timer runs on the server and cannot be paused.</li>
+            <li>Leaving full screen or switching tabs is recorded.</li>
+            <li>Your camera feed is monitored live.</li>
+            <li>Answers save automatically.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="selfcam">
+    <video id="selfVideo" autoplay playsinline muted></video>
+    <div class="cam-state"><span class="dot" id="camDot2"></span> You are being recorded</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/proctor.js"></script>
+<script src="/static/js/exam.js"></script>
+<script>
+(function () {
+  var config = {
+    candidateId: {{ candidate.id | string | tojson }},
+    iceServers: {{ ice_servers | tojson }}
+  };
+  Exam.bindControls();
+  Exam.init(config);
+})();
+</script>
+{% endblock %}

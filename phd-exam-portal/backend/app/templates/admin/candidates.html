@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Candidates{% endblock %}
+{% block topbar %}{% set active='candidates' %}{% include "partials/admin_topbar.html" with context %}{% endblock %}
+
+{% block body %}
+<div class="shell">
+  <div class="card">
+    <div class="row">
+      <h2 style="margin:0">Candidates</h2>
+      <div class="spacer"></div>
+      <input type="text" id="search" placeholder="Search name, email or registration"
+             style="max-width:320px">
+    </div>
+    <div class="alert err" id="error" hidden style="margin-top:12px"></div>
+    <div class="table-wrap" style="margin-top:14px">
+      <table>
+        <thead>
+          <tr><th>Registration</th><th>Name</th><th>Email</th><th>Programme</th>
+              <th>Status</th><th class="right">Action</th></tr>
+        </thead>
+        <tbody id="rows"><tr><td colspan="6" class="loading">Loading&hellip;</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var errorBox = document.getElementById("error");
+  var STATUSES = ["REGISTERED", "APPROVED", "ACTIVE", "BLOCKED", "DISQUALIFIED"];
+  var KIND = { APPROVED: "ok", ACTIVE: "ok", REGISTERED: "", BLOCKED: "err", DISQUALIFIED: "err" };
+
+  async function load(query) {
+    try {
+      var rows = await Portal.api("/api/admin/candidates" + (query ? "?q=" + encodeURIComponent(query) : ""));
+      var tbody = document.getElementById("rows");
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="loading">No candidates match.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = rows.map(function (c) {
+        return "<tr>" +
+          "<td class='mono small'>" + Portal.escapeHtml(c.registration_number) + "</td>" +
+          "<td>" + Portal.escapeHtml(c.full_name) + "</td>" +
+          "<td class='small'>" + Portal.escapeHtml(c.email) + "</td>" +
+          "<td class='small muted'>" + Portal.escapeHtml(c.programme || "—") + "</td>" +
+          '<td><span class="pill ' + (KIND[c.status] || "") + '">' + c.status + "</span></td>" +
+          "<td class='right'><select data-id='" + c.id + "' class='statusPick' style='width:auto'>" +
+            STATUSES.map(function (s) {
+              return "<option value='" + s + "'" + (s === c.status ? " selected" : "") + ">" + s + "</option>";
+            }).join("") +
+          "</select></td></tr>";
+      }).join("");
+
+      Array.prototype.forEach.call(tbody.querySelectorAll(".statusPick"), function (select) {
+        select.addEventListener("change", async function () {
+          Portal.hideAlert(errorBox);
+          try {
+            await Portal.api("/api/admin/candidates/" + select.dataset.id + "/status", {
+              method: "PATCH",
+              body: { status: select.value, reason: "Changed from the admin console" },
+            });
+            load(document.getElementById("search").value.trim());
+          } catch (err) {
+            Portal.showAlert(errorBox, err.message);
+          }
+        });
+      });
+    } catch (err) {
+      Portal.showAlert(errorBox, err.message);
+    }
+  }
+
+  var search = Portal.debounce(function () {
+    load(document.getElementById("search").value.trim());
+  }, 300);
+  document.getElementById("search").addEventListener("input", search);
+
+  load("");
+})();
+</script>
+{% endblock %}

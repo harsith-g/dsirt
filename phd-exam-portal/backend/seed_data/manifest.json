@@ -1,0 +1,91 @@
+{
+  "_comment": [
+    "Maps each question paper onto a phase and a Phase 2 domain.",
+    "'file' uses the exact filenames from the specification. 'aliases' lets the",
+    "same paper be dropped in under its short name instead; the seeder tries",
+    "'file' first, then each alias.",
+    "'negative_marks' is 0 everywhere because every supplied paper states",
+    "'There is no negative marking'. Change it here to enable it."
+  ],
+  "exam": {
+    "title": "Ph.D. Entrance Examination 2026 - ODD Semester",
+    "description": "Two-phase entrance examination: Phase 1 Research Methodology (common to all candidates) followed by a Phase 2 domain paper.",
+    "phase1_duration_mins": 60,
+    "phase2_duration_mins": 60,
+    "phase1_question_count": 50,
+    "phase2_question_count": 50
+  },
+  "domains": [
+    { "code": "CS",   "name": "Computer Science",      "description": "Networks, graphics, DBMS, compilers, operating systems, software engineering, AI, digital fundamentals, computer organisation and programming languages" },
+    { "code": "MATH", "name": "Mathematics",           "description": "Topology, real and complex analysis, fuzzy sets, linear algebra and differential equations" },
+    { "code": "LIFE", "name": "Life Sciences",         "description": "Cell and molecular biology, physiology, biotechnology, microbiology and biochemistry" },
+    { "code": "ENG",  "name": "English",               "description": "English literature from Chaucer to the moderns, plus grammar and usage" },
+    { "code": "COMM", "name": "Commerce & Management", "description": "Financial management, accounting, banking, marketing, human resources, organisational behaviour and strategy" },
+    { "code": "AGRO", "name": "Agronomy",              "description": "Crop production, tillage, weed and water management, nutrient management, cropping systems and experimental design" },
+    { "code": "ENTO", "name": "Entomology",            "description": "Insect morphology, physiology, reproduction, pest management, apiculture and sericulture" },
+    { "code": "PATH", "name": "Plant Pathology",       "description": "Disease triangle, fungal, bacterial, viral and nematode pathogens, epidemiology and disease management" },
+    { "code": "TAM",  "name": "Tamil",                 "description": "Tamil language, grammar and literature" }
+  ],
+  "papers": [
+    {
+      "file": "DSU_Research_Methodology_Set_II-_1_.csv",
+      "aliases": ["research_methodology.csv"],
+      "phase": "PHASE_1", "domain_code": null,
+      "source_prefix": "RM-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "LIF-SCIENCE.csv",
+      "aliases": ["life_science.csv", "life_sciences.csv"],
+      "phase": "PHASE_2", "domain_code": "LIFE",
+      "source_prefix": "LIFE-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "Pathology.csv",
+      "aliases": ["pathology.csv", "plant_pathology.csv"],
+      "phase": "PHASE_2", "domain_code": "PATH",
+      "source_prefix": "PATH-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "entomology.csv",
+      "aliases": [],
+      "phase": "PHASE_2", "domain_code": "ENTO",
+      "source_prefix": "ENTO-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "PhD- Entrance  Eng QP.csv",
+      "aliases": ["english.csv", "english.xlsx"],
+      "phase": "PHASE_2", "domain_code": "ENG",
+      "source_prefix": "ENG-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "COMPUTER-SCIENCE-ENTRANCE-TEST-QUESTIONS-_1_.csv",
+      "aliases": ["computer_science.csv"],
+      "phase": "PHASE_2", "domain_code": "CS",
+      "source_prefix": "CS-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "MATHS.csv",
+      "aliases": ["maths.csv", "mathematics.csv"],
+      "phase": "PHASE_2", "domain_code": "MATH",
+      "source_prefix": "MATH-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "AGRONOMY-Final.csv",
+      "aliases": ["agronomy.csv"],
+      "phase": "PHASE_2", "domain_code": "AGRO",
+      "source_prefix": "AGRO-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "PhD_Entrance_Exam_Commerce_Management_Alternate_Questions.csv",
+      "aliases": ["commerce_management.csv"],
+      "phase": "PHASE_2", "domain_code": "COMM",
+      "source_prefix": "COMM-", "marks": 1.0, "negative_marks": 0.0
+    },
+    {
+      "file": "Ph.D-ENTRANCE-EXAM-TAMILTAMILQuestion-_1_.csv",
+      "aliases": ["tamil.csv"],
+      "phase": "PHASE_2", "domain_code": "TAM",
+      "source_prefix": "TAM-", "marks": 1.0, "negative_marks": 0.0
+    }
+  ]
+}

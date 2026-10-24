@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+python-jose[cryptography]
+bcrypt
+pydantic[email]
+python-multipart
+jinja2
+openpyxl
+python-docx
+reportlab
+aiofiles

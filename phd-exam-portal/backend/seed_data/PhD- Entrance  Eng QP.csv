@@ -1,0 +1,51 @@
+question_number,question_text,option_a,option_b,option_c,option_d,correct_answer
+1,Who is known as the “Father of English Poetry”?,William Shakespeare,Geoffrey Chaucer,John Milton,Edmund Spenser,B
+2,The Canterbury Tales is written primarily in:,Old English,Middle English,Modern English,Anglo-Norman,B
+3,Who wrote Paradise Lost?,John Donne,John Dryden,John Milton,Alexander Pope,C
+4,"“To be, or not to be” occurs in:",Macbeth,Hamlet,King Lear,Othello,B
+5,Who wrote The Faerie Queene?,Edmund Spenser,Philip Sidney,Christopher Marlowe,Ben Jonson,A
+6,The Elizabethan Age is also commonly called the:,Age of Reason,Age of Johnson,Golden Age of English Literature,Victorian Age,C
+7,Who wrote Doctor Faustus?,Ben Jonson,Christopher Marlowe,Thomas Kyd,John Webster,B
+8,The Duchess of Malfi was written by:,John Webster,Thomas Middleton,John Ford,Thomas Kyd,A
+9,Who wrote The Pilgrim's Progress?,John Bunyan,Daniel Defoe,Samuel Richardson,Jonathan Swift,A
+10,Gulliver's Travels was written by:,Daniel Defoe,Jonathan Swift,Henry Fielding,Laurence Sterne,B
+11,Who wrote The Rape of the Lock?,John Dryden,Alexander Pope,Samuel Johnson,William Blake,B
+12,The phrase “Age of Johnson” refers mainly to the:,Renaissance,Restoration,Neoclassical period,Romantic period,C
+13,Who wrote Lyrical Ballads jointly with Samuel Taylor Coleridge?,William Wordsworth,Percy Bysshe Shelley,John Keats,Lord Byron,A
+14,The Rime of the Ancient Mariner was written by:,Wordsworth,Coleridge,Shelley,Keats,B
+15,Who wrote “Ode to the West Wind”?,John Keats,William Wordsworth,P. B. Shelley,Lord Byron,C
+16,"“Beauty is truth, truth beauty” appears in:",“Ode to a Nightingale”,“Ode on a Grecian Urn”,“To Autumn”,“Ode to Psyche”,B
+17,Pride and Prejudice was written by:,Charlotte Brontë,Emily Brontë,Jane Austen,George Eliot,C
+18,Who wrote Jane Eyre?,Emily Brontë,Charlotte Brontë,Anne Brontë,George Eliot,B
+19,Wuthering Heights was written by:,Charlotte Brontë,Emily Brontë,Anne Brontë,George Eliot,B
+20,Who wrote Middlemarch?,George Eliot,Thomas Hardy,Charles Dickens,George Meredith,A
+21,Tess of the d'Urbervilles was written by:,Thomas Hardy,George Eliot,D. H. Lawrence,Charles Dickens,A
+22,Who wrote The Waste Land?,W. B. Yeats,Ezra Pound,T. S. Eliot,W. H. Auden,C
+23,“Things fall apart; the centre cannot hold” is from:,The Waste Land,“The Second Coming”,“Sailing to Byzantium”,“Four Quartets”,B
+24,Who wrote Waiting for Godot?,Harold Pinter,Samuel Beckett,Eugene O'Neill,Arthur Miller,B
+25,The Importance of Being Earnest was written by:,Oscar Wilde,George Bernard Shaw,W. B. Yeats,J. M. Synge,A
+26,Who wrote Kanthapura?,R. K. Narayan,Raja Rao,Mulk Raj Anand,Khushwant Singh,B
+27,Untouchable was written by:,R. K. Narayan,Raja Rao,Mulk Raj Anand,Amitav Ghosh,C
+28,Who created the fictional town of Malgudi?,Raja Rao,R. K. Narayan,Mulk Raj Anand,Vikram Seth,B
+29,The God of Small Things was written by:,Arundhati Roy,Anita Desai,Kiran Desai,Aravind Adiga,A
+30,Who wrote The Shadow Lines?,Salman Rushdie,Amitav Ghosh,Vikram Seth,Rohinton Mistry,B
+31,Midnight's Children was written by:,Salman Rushdie,Amitav Ghosh,V. S. Naipaul,Vikram Seth,A
+32,Things Fall Apart was written by:,Wole Soyinka,Chinua Achebe,Ngũgĩ wa Thiong'o,Ben Okri,B
+33,Who wrote The Old Man and the Sea?,William Faulkner,Ernest Hemingway,John Steinbeck,F. Scott Fitzgerald,B
+34,The Scarlet Letter was written by:,Nathaniel Hawthorne,Herman Melville,Mark Twain,Walt Whitman,A
+35,Who wrote Moby-Dick?,Ernest Hemingway,Herman Melville,Nathaniel Hawthorne,Edgar Allan Poe,B
+36,Who wrote Poetics?,Plato,Aristotle,Horace,Longinus,B
+37,"According to Aristotle, the central element of tragedy is:",Character,Spectacle,Plot,Diction,C
+38,The concept of “catharsis” is associated with:,Comedy,Epic,Tragedy,Satire,C
+39,Who wrote An Apology for Poetry?,Philip Sidney,John Dryden,Samuel Johnson,Matthew Arnold,A
+40,The term “objective correlative” is associated with:,I. A. Richards,T. S. Eliot,Cleanth Brooks,F. R. Leavis,B
+41,“Dissociation of sensibility” was proposed by:,T. S. Eliot,F. R. Leavis,I. A. Richards,William Empson,A
+42,Who is associated with the concept of “defamiliarization”?,Roland Barthes,Viktor Shklovsky,Jacques Derrida,Michel Foucault,B
+43,Deconstruction is most closely associated with:,Jacques Derrida,Michel Foucault,Roland Barthes,Louis Althusser,A
+44,“The Death of the Author” was written by:,Michel Foucault,Roland Barthes,Jacques Derrida,Gérard Genette,B
+45,The concept of “hegemony” is strongly associated with:,Antonio Gramsci,Karl Marx,Louis Althusser,Raymond Williams,A
+46,Identify the correct sentence:,Neither of the students are present.,Neither of the students is present.,Neither of the student are present.,Neither students is present.,B
+47,Identify the passive form of “They have completed the work.”,The work has completed by them.,The work was completed by them.,The work has been completed by them.,The work had been completed by them.,C
+48,"Choose the correct indirect speech: He said, “I am busy.”",He said that I am busy.,He said that he was busy.,He said that he is busy.,He said he had been busy.,B
+49,Which sentence contains a dangling modifier?,"Walking down the road, I saw a temple.","Walking down the road, the temple came into view.","While walking down the road, I saw a temple.",I saw a temple while walking down the road.,B
+50,"In the sentence “The researcher carefully examined the data,” the word “carefully” is a",Adjective,Adverb,Preposition,Conjunction,B

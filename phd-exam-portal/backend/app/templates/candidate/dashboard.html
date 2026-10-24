@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block title %}Dashboard &middot; {{ app_name }}{% endblock %}
+
+{% block topbar %}{% include "partials/candidate_topbar.html" with context %}{% endblock %}
+
+{% block body %}
+<div class="shell">
+  <div class="alert err" id="error" hidden></div>
+
+  {% if not exam %}
+  <div class="alert warn">
+    No examination is currently open. Please check back at the scheduled time.
+  </div>
+  {% endif %}
+
+  <div class="grid cols-2">
+    <div>
+      <div class="card">
+        <h2>Examination instructions</h2>
+        <p class="sub">Read these carefully. They are enforced by the system, not by request.</p>
+
+        <h3>Structure</h3>
+        <ul class="tick">
+          <li><strong>Phase 1 &mdash; Research Methodology</strong> (common to all candidates),
+              {{ exam.phase1_duration_mins if exam else 60 }} minutes.</li>
+          <li><strong>Phase 2 &mdash; your chosen domain</strong>,
+              {{ exam.phase2_duration_mins if exam else 60 }} minutes, timed and scored separately.</li>
+          <li>After submitting Phase 1 you choose <strong>exactly one</strong> domain.
+              That choice is locked the moment you save it and cannot be changed.</li>
+        </ul>
+
+        <h3>Timing</h3>
+        <ul class="tick">
+          <li>The clock runs on the server. Closing the browser, losing your
+              connection or changing your device clock does not pause it.</li>
+          <li>When the time expires your paper is submitted automatically with
+              whatever has been saved.</li>
+          <li>Every answer is saved automatically a moment after you select it.</li>
+        </ul>
+
+        <h3>Proctoring</h3>
+        <ul class="tick">
+          <li>Your webcam must stay on for the whole examination and is streamed live to a proctor.</li>
+          <li>The paper runs in full screen. Leaving full screen, switching tabs
+              or switching windows is recorded as a violation with a timestamped snapshot.</li>
+          <li>Right-click, text selection, copy, paste and developer shortcuts are disabled.</li>
+          <li>Repeated violations are flagged to the examination cell for review.</li>
+        </ul>
+
+        <h3>Marking</h3>
+        <ul class="tick">
+          <li>Each question carries 1 mark. There is no negative marking.</li>
+          <li>Questions and options are presented in a different order for each candidate.</li>
+          <li>Unanswered questions score zero; they are never penalised.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>Your status</h2>
+        <dl class="kv" style="margin-top:14px">
+          <dt>Name</dt><dd>{{ candidate.full_name }}</dd>
+          <dt>Registration</dt><dd class="mono">{{ candidate.registration_number }}</dd>
+          <dt>Email</dt><dd>{{ candidate.email }}</dd>
+          {% if candidate.programme %}<dt>Programme</dt><dd>{{ candidate.programme }}</dd>{% endif %}
+          <dt>Progress</dt><dd id="statusPill"><span class="pill">Loading&hellip;</span></dd>
+          <dt id="domainLabel" hidden>Domain</dt><dd id="domainValue" hidden></dd>
+        </dl>
+
+        <div class="divider"></div>
+
+        <div id="actionArea" class="stack">
+          <p class="loading">Checking your session&hellip;</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Before you begin</h3>
+        <ul class="tick small muted">
+          <li>Use a laptop or desktop with a working webcam.</li>
+          <li>Use Chrome, Edge or Firefox, kept up to date.</li>
+          <li>Close every other application and browser tab.</li>
+          <li>Sit alone, in a well-lit room, with your face clearly visible.</li>
+          <li>Keep a stable internet connection for the full two hours.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var errorBox = document.getElementById("error");
+  var actionArea = document.getElementById("actionArea");
+  var statusPill = document.getElementById("statusPill");
+
+  var LABELS = {
+    NOT_STARTED:         ["Not started", ""],
+    PHASE_1_IN_PROGRESS: ["Phase 1 in progress", "info"],
+    PHASE_1_COMPLETED:   ["Phase 1 complete", "ok"],
+    PHASE_2_IN_PROGRESS: ["Phase 2 in progress", "info"],
+    COMPLETED:           ["Examination complete", "ok"],
+    TERMINATED:          ["Terminated", "err"],
+  };
+
+  function button(label, onClick, kind) {
+    var b = document.createElement("button");
+    b.className = "btn block" + (kind ? " " + kind : "");
+    b.textContent = label;
+    b.addEventListener("click", onClick);
+    return b;
+  }
+
+  function note(text) {
+    var p = document.createElement("p");
+    p.className = "small muted";
+    p.style.margin = "0";
+    p.textContent = text;
+    return p;
+  }
+
+  async function begin(endpoint) {
+    Portal.hideAlert(errorBox);
+    try {
+      await Portal.api(endpoint, { method: "POST" });
+      window.location.href = "/exam";
+    } catch (err) {
+      Portal.showAlert(errorBox, err.message);
+      render();
+    }
+  }
+
+  async function render() {
+    try {
+      var state = await Portal.api("/api/exam/state");
+      var label = LABELS[state.status] || [state.status, ""];
+      statusPill.innerHTML = '<span class="pill ' + label[1] + '">' +
+        Portal.escapeHtml(label[0]) + "</span>";
+
+      if (state.selected_domain) {
+        document.getElementById("domainLabel").hidden = false;
+        var dv = document.getElementById("domainValue");
+        dv.hidden = false;
+        dv.textContent = state.selected_domain.name + " (locked)";
+      }
+
+      actionArea.innerHTML = "";
+      switch (state.status) {
+        case "NOT_STARTED":
+          actionArea.appendChild(button("Start Phase 1", function () {
+            if (confirm("Start Phase 1?\n\nThe timer begins immediately and cannot be paused.")) {
+              begin("/api/exam/phase1/start");
+            }
+          }));
+          actionArea.appendChild(note("Your webcam will be requested and the paper will open in full screen."));
+          break;
+        case "PHASE_1_IN_PROGRESS":
+          actionArea.appendChild(button("Resume Phase 1", function () { window.location.href = "/exam"; }));
+          actionArea.appendChild(note("Time remaining: " + Portal.formatDuration(state.seconds_left)));
+          break;
+        case "PHASE_1_COMPLETED":
+          if (state.domain_locked) {
+            actionArea.appendChild(button("Start Phase 2", function () {
+              if (confirm("Start Phase 2?\n\nThe timer begins immediately and cannot be paused.")) {
+                begin("/api/exam/phase2/start");
+              }
+            }));
+          } else {
+            actionArea.appendChild(button("Choose your Phase 2 domain", function () {
+              window.location.href = "/domain-selection";
+            }));
+            actionArea.appendChild(note("You must select a domain before Phase 2 can begin."));
+          }
+          break;
+        case "PHASE_2_IN_PROGRESS":
+          actionArea.appendChild(button("Resume Phase 2", function () { window.location.href = "/exam"; }));
+          actionArea.appendChild(note("Time remaining: " + Portal.formatDuration(state.seconds_left)));
+          break;
+        case "COMPLETED":
+          actionArea.appendChild(button("View submission receipt", function () {
+            window.location.href = "/completed";
+          }, "ghost"));
+          actionArea.appendChild(note("Both phases are submitted. Nothing further is required."));
+          break;
+        default:
+          actionArea.appendChild(note("Contact the examination cell."));
+      }
+    } catch (err) {
+      actionArea.innerHTML = "";
+      actionArea.appendChild(note("Could not load your session."));
+      Portal.showAlert(errorBox, err.message);
+    }
+  }
+
+  render();
+})();
+</script>
+{% endblock %}

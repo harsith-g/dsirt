@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Administrator Sign In &middot; {{ app_name }}{% endblock %}
+
+{% block body %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-head">
+      <img class="logo" src="{{ logo_url }}" alt="{{ app_name }}">
+      <h1>Administrator Sign In</h1>
+      <p>Examination control &amp; live proctoring</p>
+    </div>
+
+    <div class="card accent">
+      <div class="alert err" id="error" hidden role="alert"></div>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Staff email address</label>
+          <input type="email" id="email" name="email" autocomplete="username"
+                 inputmode="email" autocapitalize="none" spellcheck="false"
+                 required autofocus placeholder="admin@examportal.edu">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password"
+                 autocomplete="current-password" required>
+        </div>
+        <div class="field">
+          <button class="btn block" type="submit" id="submitBtn">Sign in</button>
+        </div>
+      </form>
+    </div>
+
+    <p class="auth-foot">
+      Candidate? <a href="/login">Use the candidate sign-in page</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var form = document.getElementById("loginForm");
+  var errorBox = document.getElementById("error");
+  var button = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    Portal.hideAlert(errorBox);
+    button.disabled = true;
+    button.textContent = "Signing in…";
+    try {
+      var result = await Portal.api("/api/auth/admin/login", {
+        method: "POST",
+        body: {
+          email: document.getElementById("email").value.trim(),
+          password: document.getElementById("password").value,
+        },
+      });
+      window.location.href = result.redirect || "/admin/dashboard";
+    } catch (err) {
+      Portal.showAlert(errorBox, err.message);
+      button.disabled = false;
+      button.textContent = "Sign in";
+    }
+  });
+})();
+</script>
+{% endblock %}

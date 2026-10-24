@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Choose your Phase 2 domain{% endblock %}
+{% block topbar %}{% include "partials/candidate_topbar.html" with context %}{% endblock %}
+
+{% block body %}
+<div class="shell" style="max-width:820px">
+  <div class="card">
+    <h2>Choose your Phase 2 domain</h2>
+    <p class="sub">
+      Phase 1 is submitted and locked. Select the single domain you will be
+      examined in for Phase 2.
+    </p>
+
+    <div class="alert warn">
+      <strong>This choice is final.</strong> Once saved it cannot be changed by
+      you or by the examination cell, and Phase 2 will be drawn entirely from
+      the domain you pick here.
+    </div>
+
+    <div class="alert err" id="error" hidden></div>
+    <div id="domainList" class="stack"><p class="loading">Loading available domains&hellip;</p></div>
+
+    <div class="divider"></div>
+    <div class="row">
+      <a class="btn ghost" href="/dashboard">Back</a>
+      <div class="spacer"></div>
+      <button class="btn" id="confirmBtn" type="button" disabled>Lock in my domain</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var listEl = document.getElementById("domainList");
+  var errorBox = document.getElementById("error");
+  var confirmBtn = document.getElementById("confirmBtn");
+  var chosen = null;
+  var chosenName = "";
+
+  async function load() {
+    try {
+      var state = await Portal.api("/api/exam/state");
+      if (state.domain_locked) {
+        listEl.innerHTML =
+          '<div class="alert ok">Your domain is already locked: <strong>' +
+          Portal.escapeHtml(state.selected_domain ? state.selected_domain.name : "selected") +
+          "</strong></div>" +
+          '<a class="btn" href="/dashboard">Continue to Phase 2</a>';
+        confirmBtn.hidden = true;
+        return;
+      }
+      if (state.status !== "PHASE_1_COMPLETED") {
+        window.location.href = "/dashboard";
+        return;
+      }
+
+      var domains = await Portal.api("/api/exam/domains");
+      if (!domains.length) {
+        listEl.innerHTML =
+          '<div class="alert err">No domains are available yet. Contact the examination cell.</div>';
+        return;
+      }
+
+      listEl.innerHTML = domains.map(function (d) {
+        return (
+          '<label class="option" data-id="' + d.id + '" data-name="' + Portal.escapeHtml(d.name) + '">' +
+          '<input type="radio" name="domain" value="' + d.id + '">' +
+          '<span class="otext"><strong>' + Portal.escapeHtml(d.name) + "</strong>" +
+          '<span class="pill" style="margin-left:8px">' + d.question_count + " questions</span>" +
+          (d.description ? '<br><span class="small muted">' + Portal.escapeHtml(d.description) + "</span>" : "") +
+          "</span></label>"
+        );
+      }).join("");
+
+      Array.prototype.forEach.call(listEl.querySelectorAll(".option"), function (label) {
+        label.addEventListener("click", function () {
+          Array.prototype.forEach.call(listEl.querySelectorAll(".option"), function (o) {
+            o.classList.remove("selected");
+          });
+          label.classList.add("selected");
+          label.querySelector("input").checked = true;
+          chosen = label.dataset.id;
+          chosenName = label.dataset.name;
+          confirmBtn.disabled = false;
+        });
+      });
+    } catch (err) {
+      Portal.showAlert(errorBox, err.message);
+      listEl.innerHTML = "";
+    }
+  }
+
+  confirmBtn.addEventListener("click", async function () {
+    if (!chosen) return;
+    var typed = prompt(
+      'You are locking in "' + chosenName + '" and this cannot be undone.\n\n' +
+      'Type LOCK to confirm:'
+    );
+    if ((typed || "").trim().toUpperCase() !== "LOCK") return;
+
+    Portal.hideAlert(errorBox);
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Locking…";
+    try {
+      await Portal.api("/api/exam/domain", { method: "POST", body: { domain_id: chosen } });
+      window.location.href = "/dashboard";
+    } catch (err) {
+      Portal.showAlert(errorBox, err.message);
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "Lock in my domain";
+    }
+  });
+
+  load();
+})();
+</script>
+{% endblock %}

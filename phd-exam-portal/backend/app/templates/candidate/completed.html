@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Examination complete{% endblock %}
+{% block topbar %}{% include "partials/candidate_topbar.html" with context %}{% endblock %}
+
+{% block body %}
+<div class="shell" style="max-width:660px">
+  <div class="card" style="text-align:center">
+    <div style="font-size:42px">&#9989;</div>
+    <h2 style="margin-top:10px">Examination submitted</h2>
+    <p class="sub">Your answers are recorded. You may close this window.</p>
+  </div>
+
+  <div class="card">
+    <h3>Submission receipt</h3>
+    <dl class="kv">
+      <dt>Candidate</dt><dd>{{ candidate.full_name }}</dd>
+      <dt>Registration</dt><dd class="mono">{{ candidate.registration_number }}</dd>
+      {% if session %}
+      <dt>Status</dt><dd>{{ session.status.value.replace('_', ' ').title() }}</dd>
+      {% if session.selected_domain %}<dt>Phase 2 domain</dt><dd>{{ session.selected_domain.name }}</dd>{% endif %}
+      {% if session.phase1_end %}<dt>Phase 1 submitted</dt><dd class="mono small">{{ session.phase1_end.strftime('%d %b %Y, %H:%M UTC') }}</dd>{% endif %}
+      {% if session.phase2_end %}<dt>Phase 2 submitted</dt><dd class="mono small">{{ session.phase2_end.strftime('%d %b %Y, %H:%M UTC') }}</dd>{% endif %}
+      {% endif %}
+    </dl>
+  </div>
+
+  {% if result %}
+  <div class="card">
+    <h3>Result</h3>
+    <div class="grid cols-3" style="margin-top:12px">
+      <div class="stat"><div class="label">Phase 1</div><div class="value sm">{{ result.phase1_score }} / {{ result.phase1_max }}</div></div>
+      <div class="stat"><div class="label">Phase 2</div><div class="value sm">{{ result.phase2_score }} / {{ result.phase2_max }}</div></div>
+      <div class="stat"><div class="label">Total</div><div class="value">{{ result.total_score }} / {{ result.total_max }}</div></div>
+    </div>
+  </div>
+  {% else %}
+  <div class="card">
+    <p class="muted small" style="margin:0">
+      Results have not been published yet. You will be notified by the
+      examination cell when they are available.
+    </p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

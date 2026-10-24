@@ -1,0 +1,10 @@
+{
+  "name": "PhD Entrance Examination Platform",
+  "description": "Secure online entrance examination platform with candidate testing, timer synchronization, proctoring, and administrative controls.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard{% endblock %}
+{% block topbar %}{% set active='dashboard' %}{% include "partials/admin_topbar.html" with context %}{% endblock %}
+
+{% block body %}
+<div class="shell wide">
+  <div class="alert err" id="error" hidden></div>
+
+  <div class="row" style="margin-bottom:16px">
+    <h1 style="font-size:20px;margin:0">System overview</h1>
+    <div class="spacer"></div>
+    <span class="small muted" id="refreshedAt"></span>
+    <a class="btn ghost sm" href="/api/admin/results/export">Export results CSV</a>
+  </div>
+
+  <div class="grid cols-4" id="stats">
+    <div class="loading">Loading&hellip;</div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <div class="row">
+      <h2 style="margin:0">Live sessions</h2>
+      <div class="spacer"></div>
+      <a class="btn sm" href="/admin/proctoring">Open proctoring grid</a>
+    </div>
+    <p class="sub">In-progress sessions with presence from the heartbeat channel.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Candidate</th><th>Phase</th><th>Domain</th><th>Time left</th>
+            <th>Violations</th><th>Ping</th><th>Camera</th><th>Presence</th>
+          </tr>
+        </thead>
+        <tbody id="sessionRows"><tr><td colspan="8" class="loading">Loading&hellip;</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var errorBox = document.getElementById("error");
+
+  function stat(label, value, kind) {
+    return '<div class="stat"><div class="label">' + label + '</div>' +
+           '<div class="value' + (kind === "sm" ? " sm" : "") + '">' + value + "</div></div>";
+  }
+
+  async function refresh() {
+    try {
+      var d = await Portal.api("/api/admin/dashboard");
+      document.getElementById("stats").innerHTML =
+        stat("Candidates", d.candidates_total) +
+        stat("Approved", d.candidates_approved) +
+        stat("In progress", d.sessions_in_progress) +
+        stat("Completed", d.sessions_completed) +
+        stat("Online now", d.online_now) +
+        stat("Phase 1 questions", d.questions_phase1) +
+        stat("Phase 2 questions", d.questions_phase2) +
+        stat("Violations (24h)", d.violations_today) +
+        stat("Database", d.db_ok ? "Healthy" : "DOWN", "sm") +
+        stat("Redis", d.redis_ok ? "Healthy" : "DOWN", "sm");
+
+      var rows = await Portal.api("/api/admin/sessions/live");
+      var tbody = document.getElementById("sessionRows");
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="loading">No sessions in progress.</td></tr>';
+      } else {
+        tbody.innerHTML = rows.map(function (s) {
+          return "<tr>" +
+            "<td><strong>" + Portal.escapeHtml(s.full_name) + "</strong><br>" +
+              '<span class="mono small muted">' + Portal.escapeHtml(s.registration_number) + "</span></td>" +
+            "<td>" + s.current_phase.replace("_", " ") + "</td>" +
+            "<td>" + Portal.escapeHtml(s.domain || "—") + "</td>" +
+            '<td class="mono">' + Portal.formatDuration(s.seconds_left) + "</td>" +
+            '<td>' + (s.violation_count
+                ? '<span class="pill err">' + s.violation_count + "</span>"
+                : '<span class="pill ok">0</span>') + "</td>" +
+            "<td>" + (s.ping_ms !== null ? s.ping_ms + " ms" : "—") + "</td>" +
+            "<td>" + (s.camera_active
+                ? '<span class="pill ok">on</span>'
+                : '<span class="pill err">off</span>') + "</td>" +
+            "<td>" + (s.online
+                ? '<span class="pill ok">online</span>'
+                : '<span class="pill">offline</span>') +
+              '<br><span class="small muted">' + Portal.relativeTime(s.last_seen) + "</span></td>" +
+            "</tr>";
+        }).join("");
+      }
+      document.getElementById("refreshedAt").textContent =
+        "Updated " + new Date().toLocaleTimeString();
+      Portal.hideAlert(errorBox);
+    } catch (err) {
+      Portal.showAlert(errorBox, err.message);
+    }
+  }
+
+  refresh();
+  setInterval(refresh, 5000);
+})();
+</script>
+{% endblock %}

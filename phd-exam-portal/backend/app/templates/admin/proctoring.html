@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Live proctoring{% endblock %}
+{% block topbar %}{% set active='proctoring' %}{% include "partials/admin_topbar.html" with context %}{% endblock %}
+
+{% block body %}
+<div class="shell wide">
+  <div class="row" style="margin-bottom:14px">
+    <h1 style="font-size:20px;margin:0">Live proctoring</h1>
+    <span class="pill info"><span class="dot idle" id="wsDot"></span> <span id="wsState">Connecting&hellip;</span></span>
+    <div class="spacer"></div>
+    <input type="text" id="filterBox" placeholder="Filter by name, registration or domain"
+           style="max-width:320px">
+  </div>
+
+  <div class="grid cols-4" style="margin-bottom:16px">
+    <div class="stat"><div class="label">Sessions live</div><div class="value" id="liveCount">0</div></div>
+    <div class="stat"><div class="label">Cameras online</div><div class="value" id="onlineCount">0</div></div>
+    <div class="stat"><div class="label">Flagged</div><div class="value" id="flaggedCount">0</div></div>
+    <div class="stat"><div class="label">Auto-flag at</div><div class="value">5 violations</div></div>
+  </div>
+
+  <div class="exam-layout proctor-layout">
+    <div>
+      <div class="feed-grid" id="feedGrid">
+        <p class="loading">Loading feeds&hellip;</p>
+      </div>
+      <p class="small muted" style="margin-top:14px">
+        Click a tile for that candidate's full violation history and snapshots.
+        Feeds fall back to 1 fps stills automatically when a candidate's
+        bandwidth will not carry live video.
+      </p>
+    </div>
+
+    <aside>
+      <div class="card">
+        <h3>Event stream</h3>
+        <p class="sub">Violations and presence changes, pushed live.</p>
+        <div id="eventLog" style="max-height:60vh;overflow:auto"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="detailModal" hidden>
+  <div class="modal">
+    <div class="row">
+      <h2 style="margin:0" id="detailTitle">Candidate</h2>
+      <div class="spacer"></div>
+      <button class="btn ghost sm" type="button" id="closeDetail">Close</button>
+    </div>
+    <div class="divider"></div>
+    <div id="detailBody"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/proctor_grid.js"></script>
+<script>
+(function () {
+  document.getElementById("closeDetail").addEventListener("click", function () {
+    document.getElementById("detailModal").hidden = true;
+  });
+  document.getElementById("filterBox").addEventListener("input", function () {
+    ProctorGrid.refresh();
+  });
+  ProctorGrid.init({ iceServers: {{ ice_servers | tojson }} });
+})();
+</script>
+{% endblock %}

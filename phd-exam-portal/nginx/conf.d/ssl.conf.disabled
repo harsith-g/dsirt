@@ -1,0 +1,24 @@
+# Rename to `ssl.conf` once certbot has issued a certificate, and replace
+# exam.example.edu below with your domain in all three places.
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name exam.example.edu;
+
+    ssl_certificate     /etc/letsencrypt/live/exam.example.edu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/exam.example.edu/privkey.pem;
+
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 1d;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "same-origin" always;
+
+    include /etc/nginx/conf.d/_proxy.inc;
+}

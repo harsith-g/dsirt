@@ -1,0 +1,51 @@
+question_number,question_text,option_a,option_b,option_c,option_d,correct_answer
+1,The disease triangle is composed of:,"Host, pathogen and environment","Host, vector and soil","Pathogen, soil and fertilizer","Host, insect and temperature",A
+2,Pathogenicity refers to the:,Degree of disease produced,Ability of a pathogen to cause disease,Ability of a host to resist disease,Rate of pathogen multiplication,B
+3,Virulence is best defined as the:,Ability of a pathogen to survive,Ability to produce spores,Degree of pathogenicity of a pathogen,Ability to enter plant tissues,C
+4,Which of the following is a sign rather than a symptom?,Chlorosis,Wilt,Necrosis,Fungal mycelium on a diseased leaf,D
+5,The inoculum that initiates the first infection in a crop is called:,Secondary inoculum,Primary inoculum,Latent inoculum,Residual inoculum,B
+6,The visible expression of a plant disease is known as a:,Symptom,Sign,Spore,Inoculum,A
+7,"A disease caused by drought, salinity or nutrient imbalance is classified as:",Biotic disease,Infectious disease,Abiotic disorder,Parasitic disease,C
+8,A pathogen that obtains nutrients from living host cells is called a:,Saprophyte,Biotroph,Decomposer,Saprobe,B
+9,The vegetative body of most fungi is called:,Mycelium,Spore,Conidium,Sorus,A
+10,A single fungal filament is known as a:,Conidium,Sclerotium,Hypha,Sporangium,C
+11,Which structure is commonly involved in penetration of the host surface by many fungi?,Appressorium,Sclerotium,Rhizomorph,Sporangiophore,A
+12,Sclerotia primarily function as:,Reproductive structures,Nutrient-absorbing structures,Long-term survival structures,Penetration structures,C
+13,Conidia are generally:,Sexual spores,Asexual spores,Bacterial cells,Nematode eggs,B
+14,Which genus is commonly associated with vascular wilt diseases?,Puccinia,Fusarium,Erysiphe,Albugo,B
+15,Damping-off of seedlings is commonly associated with:,Pythium,Puccinia,Ustilago,Alternaria,A
+16,Powdery mildew fungi are generally:,Obligate biotrophs,Obligate saprophytes,Soil-borne bacteria,Facultative saprophytes,A
+17,Rust diseases of wheat are commonly caused by species of:,Fusarium,Puccinia,Rhizoctonia,Pythium,B
+18,Heteroecious rust fungi require:,Two different hosts to complete their life cycle,Two pathogens on the same host,Two environmental conditions,Two types of fertilizers,A
+19,Bacteria are classified as:,Eukaryotic organisms,Prokaryotic organisms,Multicellular fungi,Obligate parasites,B
+20,Bacterial ooze observed from diseased tissue is considered a:,Symptom,Sign,Physiological disorder,Resistance reaction,B
+21,Bacterial leaf blight of rice is caused by:,Ralstonia solanacearum,Xanthomonas oryzae pv. oryzae,Agrobacterium tumefaciens,Pseudomonas syringae,B
+22,Ralstonia solanacearum is primarily responsible for:,Bacterial wilt,Citrus canker,Rice blast,Wheat rust,A
+23,Crown gall disease is caused by:,Xanthomonas oryzae,Agrobacterium tumefaciens,Ralstonia solanacearu,Pseudomonas syringae,B
+24,Agrobacterium causes crown gall mainly through transfer of:,RNA,T-DNA,Ribosomal proteins,Fungal spores,B
+25,Citrus canker is characteristically associated with:,Root galls,Raised corky lesions,White powdery growth,Vascular browning only,B
+26,Plant viruses are generally:,Free-living organisms,Obligate intracellular parasites,Saprophytic fungi,Prokaryotic organisms,B
+27,Tobacco mosaic virus contains:,DNA,RNA,Both DNA and RNA,Protein as genetic material,B
+28,A common symptom associated with viral diseases is:,Mosaic,Sclerotium,Bacterial ooze,Rust pustules,A
+29,Which insect group is an important vector of many plant viruses?,Aphids,Termites,Earthworms,Grasshoppers,A
+30,Mechanical transmission of a plant virus commonly occurs through:,Infected plant sap,Fertilizer granules,Soil nutrients,Fungal spores,A
+31,Phytoplasmas are mainly associated with the:,Xylem,Phloem,Epidermis,Root cortex,B
+32,Phytoplasmas are commonly transmitted by:,Leafhoppers,Earthworms,Fungi,Mites only,A
+33,Root-knot nematodes belong to the genus:,Heterodera,Meloidogyne,Pratylenchus,Tylenchulus,B
+34,The characteristic symptom of Meloidogyne infection is:,Leaf mosaic,Root galls,Rust pustules,Bacterial ooze,B
+35,Plant-parasitic nematodes are generally:,Microscopic roundworms,Fungi,Bacteria,Protozoa,A
+36,Disease incidence generally represents the:,Degree of tissue damage,Proportion of plant units affected,Amount of pathogen in soil,Number of spores produced,B
+37,Disease severity refers to the:,Degree or extent of disease development,Number of diseased fields,Amount of inoculum in seed,Number of vectors present,A
+38,The period between infection and the appearance of symptoms is called the:,Latent period,Incubation period,Survival period,Generation period,B
+39,Secondary inoculum is inoculum that:,Initiates the first infection,Develops from primary infections and causes further infections,Remains dormant in seed,Is produced only sexually,B
+40,Which environmental condition generally favors many foliar fungal diseases?,High relative humidity and prolonged leaf wetness,Very low humidity,Complete absence of moisture,Extremely dry conditions,A
+41,Removal and destruction of diseased plant debris is known as:,Inoculation,Sanitation,Incubation,Sporulation,B
+42,Crop rotation is particularly useful for managing pathogens that:,Survive in soil or crop residues,Are transmitted only by insects,Have no survival stage,Infect plants only through air,A
+43,Bordeaux mixture is composed mainly of:,Copper sulphate and lime,Sulphur and urea,Zinc sulphate and lime,Copper chloride and urea,A
+44,Seed treatment is primarily used to manage:,Seed-borne and soil-borne pathogens,Viral vectors only,Nutrient deficiencies,Insect pests only,A
+45,The use of resistant varieties represents:,Chemical control,Host resistance,Physical control,Eradication,B
+46,Trichoderma spp. are widely used as:,Biological control agents,Viral vectors,Insecticides,Plant-parasitic nematodes,A
+47,A fungicide capable of moving within plant tissues is generally called a:,Contact fungicide,Systemic fungicide,Protective dust,Surface disinfectant,B
+48,Integrated Disease Management (IDM) involves:,Use of fungicides alone,Combining compatible disease-management methods,Using resistant varieties alone,Avoiding disease monitoring,B
+49,A disease that produces several successive generations of infection during one cropping season is generally called:,Monocyclic disease,Polycyclic disease,Abiotic disease,Non-infectious disease,B
+50,The most sustainable approach to plant disease management is generally to:,Depend entirely on chemicals,Use only biological control,Integrate multiple compatible management strategies,Avoid preventive measures,C
