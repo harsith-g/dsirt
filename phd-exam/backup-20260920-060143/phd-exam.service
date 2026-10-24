@@ -1,0 +1,15 @@
+[Unit]
+Description=PhD Entrance Exam FastAPI
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/phd-exam
+EnvironmentFile=/opt/phd-exam/.env
+Environment="PATH=/opt/phd-exam/venv/bin"
+ExecStart=/opt/phd-exam/venv/bin/uvicorn backend.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

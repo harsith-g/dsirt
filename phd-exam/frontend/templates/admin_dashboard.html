@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Console — Ph.D Entrance Examination</title>
+  <link rel="icon" type="image/png" href="/static/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="admin-shell" id="adminShell" style="display:none;">
+
+    <!-- ========= HEADER ========= -->
+    <div class="admin-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <img src="/static/img/logo.png" alt="DSIRT Logo" class="university-logo admin-header-logo" onerror="this.style.display='none'">
+        <div>
+          <h1 style="margin:0;">Exam Dashboard</h1>
+          <div style="font-size:12px; color:var(--text-faint); font-family:var(--font-mono);">Administrator Console</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <button class="global-exam-btn" id="globalExamBtn" data-state="closed">▶ Start Exam for All</button>
+        <div class="conn-status">
+          <span class="conn-dot" id="connDot"></span>
+          <span id="connLabel">Connecting…</span>
+        </div>
+        <button class="btn btn-sm" id="logoutAdminBtn" style="opacity:0.6;">Sign out</button>
+      </div>
+    </div>
+
+    <!-- ========= TABS ========= -->
+    <div class="tab-row">
+      <button class="tab-btn active" data-tab="monitor">Live Monitor</button>
+      <button class="tab-btn" data-tab="schedule">Exam Schedule</button>
+      <button class="tab-btn" data-tab="users">Manage Users</button>
+      <button class="tab-btn" data-tab="questions">Question Bank</button>
+    </div>
+
+    <!-- ================================================================ -->
+    <!--  TAB: Live Monitor                                               -->
+    <!-- ================================================================ -->
+    <div class="tab-panel active" id="panel-monitor">
+
+      <!-- Summary tiles -->
+      <div class="summary-row">
+        <div class="summary-tile"><div class="num" id="tileInProgress">0</div><div class="lbl">In Progress</div></div>
+        <div class="summary-tile"><div class="num" id="tileCompleted">0</div><div class="lbl">Completed</div></div>
+        <div class="summary-tile"><div class="num" id="tileDisqualified">0</div><div class="lbl">Disqualified</div></div>
+        <div class="summary-tile"><div class="num" id="tileTotal">0</div><div class="lbl">Total Candidates</div></div>
+      </div>
+
+      <!-- Search + controls bar -->
+      <div style="display:flex; gap:12px; margin-bottom:16px; align-items:center; flex-wrap:wrap;">
+        <input type="text" id="candidateSearchInput" placeholder="Search candidate name or email…"
+               style="flex:1; min-width:200px; padding:8px 12px; background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; color:var(--text-main); font-size:13px; font-family:inherit;">
+        <select id="statusFilter" style="padding:8px 12px; background:var(--bg-panel); border:1px solid var(--border); border-radius:8px; color:var(--text-main); font-size:13px; font-family:inherit;">
+          <option value="">All Statuses</option>
+          <option value="in_progress">In Progress</option>
+          <option value="completed">Completed</option>
+          <option value="expired">Expired</option>
+          <option value="disqualified">Disqualified</option>
+        </select>
+        <button class="btn btn-sm" id="toggleGridBtn">View Video Grid</button>
+        <div style="display:flex; align-items:center; gap:2px;">
+          <button class="btn btn-sm btn-primary" id="downloadResultsBtn" data-format="xlsx" title="Download every candidate's results as an Excel file — one click.">⬇ Download All Results</button>
+          <button class="btn btn-sm" id="downloadResultsCsvBtn" data-format="csv" style="font-size:11px; padding:6px 8px;" title="Same export as CSV instead">CSV</button>
+        </div>
+      </div>
+
+      <!-- Table view -->
+      <div id="tableView">
+        <table class="candidate-table">
+          <thead>
+            <tr>
+              <th>Candidate</th>
+              <th>Status</th>
+              <th>Phase</th>
+              <th>Warnings</th>
+              <th>Progress</th>
+              <th>Domain</th>
+              <th>Time Remaining</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="candidateTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Video grid view -->
+      <div id="gridView" style="display:none;">
+        <div style="display:flex; gap:10px; margin-bottom:14px; align-items:center;">
+          <h3 style="margin:0; font-size:0.95rem;">Live Camera Grid</h3>
+          <span style="font-size:0.8rem; color:var(--text-faint);">Snapshots update every 10s · Click a tile for focus view</span>
+          <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+            <button class="btn btn-sm" id="gridPrevPage" disabled>← Prev</button>
+            <span id="gridPageLabel" style="font-size:0.82rem; color:var(--text-faint);">Page 1</span>
+            <button class="btn btn-sm" id="gridNextPage">Next →</button>
+          </div>
+        </div>
+        <div class="video-grid" id="videoGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:15px;"></div>
+      </div>
+
+    </div><!-- end panel-monitor -->
+
+    <!-- ================================================================ -->
+    <!--  TAB: Exam Schedule                                              -->
+    <!-- ================================================================ -->
+    <div class="tab-panel" id="panel-schedule">
+
+      <div style="max-width:600px; margin:0 auto;">
+        <h2 style="margin-bottom:6px;">Exam Schedule</h2>
+        <p style="color:var(--text-faint); font-size:0.88rem; margin-bottom:24px;">
+          Set the global exam window. The timer shown to candidates is computed from the scheduled end time.
+          Late-starting candidates automatically receive reduced time. Times are entered in IST and stored in UTC internally.
+        </p>
+
+        <div id="currentScheduleDisplay" style="background:var(--bg-panel); border:1px solid var(--border); border-radius:12px; padding:1.2rem; margin-bottom:1.5rem; display:none;">
+          <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin-bottom:8px;">Current Schedule</div>
+          <div style="font-size:1rem; color:#a5b4fc; font-weight:600;" id="schedDisplayText">—</div>
+        </div>
+
+        <div class="form-section" style="background:var(--bg-panel); border:1px solid var(--border); border-radius:12px; padding:1.5rem;">
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Exam Start (IST)</label>
+            <input type="datetime-local" id="schedStartInput" class="input" style="width:100%;">
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Exam End (IST)</label>
+            <input type="datetime-local" id="schedEndInput" class="input" style="width:100%;">
+          </div>
+          <div class="form-group" style="margin-bottom:1.2rem;">
+            <label class="form-label">Timezone Label (display only)</label>
+            <input type="text" id="schedTzLabel" class="input" value="IST (Asia/Kolkata)" style="width:100%;">
+          </div>
+          <button class="btn btn-primary" id="setScheduleBtn" style="width:100%;">
+            Save Exam Schedule
+          </button>
+          <div class="form-error" id="scheduleError" style="margin-top:10px; display:none;"></div>
+          <div id="scheduleSuccess" style="margin-top:10px; color:#4ade80; font-size:0.88rem; display:none;"></div>
+        </div>
+
+        <div style="margin-top:1.5rem; background:rgba(234,179,8,0.07); border:1px solid rgba(234,179,8,0.2); border-radius:10px; padding:1rem; font-size:0.84rem; color:#94a3b8;">
+          <strong style="color:#fbbf24;">Note:</strong>
+          Setting the schedule does not automatically open or close the exam.
+          You still need to click <strong>Start Exam for All</strong> in the header to allow candidates to enter.
+          The schedule is used only for computing available time for each candidate.
+        </div>
+      </div>
+    </div><!-- end panel-schedule -->
+
+    <!-- ================================================================ -->
+    <!--  TAB: Manage Users                                               -->
+    <!-- ================================================================ -->
+    <div class="tab-panel" id="panel-users">
+      <div class="flash-msg" id="userActionMessage"></div>
+
+      <!-- Setter management -->
+      <section class="admin-section">
+        <div class="section-header">
+          <h2>Question Setters</h2>
+          <button class="btn btn-primary btn-sm" id="addSetterBtn">+ Add setter</button>
+        </div>
+        <div id="addSetterForm" class="add-user-form" style="display:none;">
+          <input class="input" id="setterName" placeholder="Full name" type="text">
+          <input class="input" id="setterEmail" placeholder="Email address" type="email">
+          <button class="btn btn-primary btn-sm" id="createSetterBtn">Create</button>
+          <button class="btn btn-sm" id="cancelSetterBtn">Cancel</button>
+        </div>
+        <table class="candidate-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="setterTableBody"></tbody>
+        </table>
+      </section>
+
+      <hr class="admin-divider">
+
+      <!-- Candidate management -->
+      <section class="admin-section">
+        <div class="section-header">
+          <h2>Candidates</h2>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-primary btn-sm" id="addCandidateBtn">+ Add candidate</button>
+            <label class="btn btn-sm" style="cursor:pointer;">
+              📥 Import CSV
+              <input type="file" id="csvCandidateUpload" accept=".csv" style="display:none;">
+            </label>
+          </div>
+        </div>
+        <div id="addCandidateForm" class="add-user-form" style="display:none;">
+          <input class="input" id="candidateName2" placeholder="Full name" type="text">
+          <input class="input" id="candidateEmail" placeholder="Email address" type="email">
+          <button class="btn btn-primary btn-sm" id="createCandidateBtn">Create</button>
+          <button class="btn btn-sm" id="cancelCandidateBtn">Cancel</button>
+        </div>
+        <table class="candidate-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Session</th><th>Actions</th></tr></thead>
+          <tbody id="candidateUsersTableBody"></tbody>
+        </table>
+      </section>
+    </div><!-- end panel-users -->
+
+    <!-- ================================================================ -->
+    <!--  TAB: Question Bank                                              -->
+    <!-- ================================================================ -->
+    <div class="tab-panel" id="panel-questions">
+      <div class="flash-msg" id="questionActionMessage"></div>
+
+      <section class="admin-section">
+        <div class="section-header">
+          <h2>Upload Questions</h2>
+        </div>
+        <div class="upload-form">
+          <select id="uploadDomain" class="input">
+            <option value="">— Select domain —</option>
+            <option value="Research Methodology">Research Methodology (Phase 1)</option>
+            <optgroup label="Phase 2 Domains">
+              <option value="Agricultural - Agronomy">Agricultural — Agronomy</option>
+              <option value="Agricultural - Entomology">Agricultural — Entomology</option>
+              <option value="Agricultural - Pathology">Agricultural — Pathology</option>
+              <option value="Bio-Science">Bio-Science</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Commerce &amp; Management Studies">Commerce &amp; Management Studies</option>
+              <option value="English">English</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Tamil">Tamil</option>
+            </optgroup>
+          </select>
+          <select id="uploadPhase" class="input">
+            <option value="1">Phase 1</option>
+            <option value="2">Phase 2</option>
+          </select>
+          <label class="btn btn-primary btn-sm" style="cursor:pointer;">
+            📎 Select File (.docx / .xlsx / .csv)
+            <input type="file" id="questionFileInput" accept=".docx,.xlsx,.csv" style="display:none;">
+          </label>
+          <div id="questionUploadStatus" style="font-size:0.85rem; color:var(--text-faint);"></div>
+        </div>
+        <div class="flash-msg" id="questionUploadMessage" style="margin-top:8px;"></div>
+      </section>
+
+      <hr class="admin-divider">
+
+      <section class="admin-section">
+        <div class="section-header">
+          <h2>Question Bank</h2>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input type="text" id="questionSearchInput" placeholder="Search questions…"
+                   style="padding:6px 10px; background:var(--bg-panel); border:1px solid var(--border); border-radius:6px; color:var(--text-main); font-size:12px; font-family:inherit; width:220px;">
+            <select id="domainFilterQuestions" class="input" style="width:auto; font-size:12px;">
+              <option value="">All domains</option>
+              <option value="Research Methodology">Research Methodology</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Tamil">Tamil</option>
+              <option value="English">English</option>
+              <option value="Commerce &amp; Management Studies">Commerce</option>
+              <option value="Bio-Science">Bio-Science</option>
+            </select>
+          </div>
+        </div>
+        <table class="candidate-table">
+          <thead><tr><th>#</th><th>Domain</th><th>Phase</th><th>Type</th><th>Question</th><th>Actions</th></tr></thead>
+          <tbody id="questionTableBody"></tbody>
+        </table>
+        <div id="questionPaginationBar" style="display:flex; gap:8px; margin-top:12px; align-items:center; justify-content:center; font-size:0.82rem; color:var(--text-faint);"></div>
+      </section>
+    </div><!-- end panel-questions -->
+
+  </div><!-- end adminShell -->
+
+  <!-- ================================================================ -->
+  <!--  MODAL: End Exam Confirmation                                     -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="endExamModal">
+    <div class="modal-box modal-box-confirm">
+      <h2>End Exam for All?</h2>
+      <p>This will immediately terminate all active candidate sessions, save their current answers, and grade them. This action cannot be undone.</p>
+      <div style="display:flex; gap:12px; margin-top:20px;">
+        <button class="btn" id="endExamCancelBtn" style="flex:1;">Cancel</button>
+        <button class="btn btn-danger" id="endExamConfirmBtn" style="flex:1;">Yes — End Exam Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  MODAL: Credential Reveal                                         -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="credModal">
+    <div class="modal-box">
+      <h2 id="credModalTitle">Account Created</h2>
+      <p id="credModalSubtitle" style="color:var(--text-faint); font-size:0.88rem;"></p>
+      <div style="background:var(--bg-base); border:1px solid var(--border); border-radius:8px; padding:14px; margin:14px 0; font-family:var(--font-mono); font-size:0.9rem;">
+        <div style="margin-bottom:8px;"><span style="color:var(--text-faint);">Email:</span> <strong id="credEmail"></strong></div>
+        <div><span style="color:var(--text-faint);">Password:</span> <strong id="credPassword"></strong></div>
+      </div>
+      <button class="btn btn-primary" id="credModalClose" style="width:100%;">Close</button>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  MODAL: Candidate Result Detail (admin-only)                      -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="resultModal">
+    <div class="modal-box" style="max-width:760px; max-height:85vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+        <h2 style="margin:0;" id="resultModalTitle">Candidate Result</h2>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-sm" id="resultPdfBtn">⬇ Download PDF</button>
+          <button class="btn btn-sm" id="resultModalClose">✕ Close</button>
+        </div>
+      </div>
+      <div id="resultModalBody">Loading…</div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  MODAL: Video Focus                                               -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="focusModal">
+    <div class="modal-box" style="max-width:680px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h2 style="margin:0;" id="focusModalName">—</h2>
+        <button class="btn btn-sm" id="focusModalClose">✕ Close</button>
+      </div>
+      <video id="focusModalVideo" autoplay muted playsinline style="width:100%; border-radius:8px; background:#000;"></video>
+      <div id="focusModalImg" style="width:100%; border-radius:8px; background:#111; min-height:200px; display:none; align-items:center; justify-content:center;">
+        <img id="focusModalImgEl" style="width:100%; height:auto; border-radius:8px;" alt="">
+      </div>
+      <div id="focusModalDetails" style="margin-top:14px; font-size:0.85rem; color:var(--text-faint); display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>
+      <div style="display:flex; gap:8px; margin-top:14px;">
+        <button class="btn btn-sm" id="focusDisqualifyBtn" style="color:#ef4444; border-color:#ef4444;">Disqualify</button>
+        <button class="btn btn-sm" id="focusGrantRetakeBtn">Grant Retake</button>
+        <button class="btn btn-sm" id="focusViewResultBtn">View Result →</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/admin.js"></script>
+</body>
+</html>

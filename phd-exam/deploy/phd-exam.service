@@ -1,0 +1,44 @@
+[Unit]
+Description=PhD Entrance Examination Platform (FastAPI/Gunicorn)
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+# Deliberately not root. Create this user during first-time setup:
+#   useradd --system --home /var/www/phd-exam --shell /usr/sbin/nologin phdexam
+#   chown -R phdexam:phdexam /var/www/phd-exam
+User=phdexam
+Group=phdexam
+
+WorkingDirectory=/var/www/phd-exam
+EnvironmentFile=/var/www/phd-exam/.env
+
+ExecStart=/var/www/phd-exam/venv/bin/gunicorn backend.main:app -c /var/www/phd-exam/deploy/gunicorn.conf.py
+
+# Zero-crash requirement: a worker crash, an OOM kill, an unhandled
+# exception that somehow escapes the app-level try/excepts, or a manual
+# `systemctl stop` followed by a reboot should all result in the service
+# coming back on its own rather than silently staying down through an
+# exam window.
+Restart=always
+RestartSec=5
+
+# Give in-flight requests/WebSocket loops a chance to wind down on
+# `systemctl restart` (e.g. after a deploy) instead of being SIGKILLed
+# immediately — matches gunicorn's own graceful_timeout.
+TimeoutStopSec=35
+KillMode=mixed
+
+# Modest hardening — doesn't touch anything the app needs (it only
+# writes under its own working directory: the uploads dir and, in SQLite
+# dev mode, the .db file).
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Uncomment if the platform ever needs a fixed number of file
+# descriptors above the distro default (100+ concurrent WebSocket
+# connections plus HTTP keep-alives can add up):
+# LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

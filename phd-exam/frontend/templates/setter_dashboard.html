@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question bank — PhD Entrance Examination</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+  <!-- Setter must already hold a token from /login (role=setter). If none
+       is present, setter.js redirects back to /login. -->
+  <div class="admin-shell" id="setterShell" style="display:none;">
+    <div class="admin-header">
+      <h1>Question bank</h1>
+      <div class="conn-status" id="setterName"></div>
+    </div>
+
+    <div class="form-error" id="questionActionMessage"></div>
+    <div class="panel-header">
+      <h2>All questions</h2>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-sm" id="downloadTemplateBtn">Download CSV template</button>
+        <button class="btn btn-sm" id="showBulkImportBtn">Bulk import (CSV)</button>
+        <button class="btn btn-primary btn-sm" id="addQuestionBtn">+ Add question</button>
+      </div>
+    </div>
+
+    <div class="inline-form" id="bulkImportForm">
+      <div class="field">
+        <label>CSV file</label>
+        <input type="file" id="csvFile" accept=".csv,text/csv">
+      </div>
+      <p class="form-hint" style="margin-top:0;">
+        Columns: domain, question_type, question_text, option_a, option_b, option_c, option_d, correct_option.
+        Leave the option columns blank for written questions. Every valid row is imported even if some rows have errors.
+      </p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-sm" data-cancel="bulkImportForm">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" id="submitBulkImportBtn">Import</button>
+      </div>
+    </div>
+
+    <div class="inline-form" id="questionForm">
+      <input type="hidden" id="questionId">
+      <div class="form-row">
+        <div class="field" style="max-width:140px;">
+          <label>Order no.</label>
+          <input type="number" id="qOrderNo" min="1" required>
+        </div>
+        <div class="field" style="max-width:240px;">
+          <label>Domain</label>
+          <select id="qDomain"></select>
+        </div>
+        <div class="field" style="max-width:200px;">
+          <label>Type</label>
+          <select id="qType">
+            <option value="mcq">Multiple choice</option>
+            <option value="written">Written</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Question text</label>
+        <textarea id="qText" required></textarea>
+      </div>
+      <div class="field" id="qOptionsWrap">
+        <label>Options (select the correct one)</label>
+        <div id="qOptionsList"></div>
+        <button type="button" class="btn btn-sm" id="addOptionBtn">+ Add option</button>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-sm" data-cancel="questionForm">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" id="submitQuestionBtn">Save question</button>
+      </div>
+    </div>
+
+    <div class="form-row" style="margin-bottom:14px;">
+      <div class="field" style="max-width:260px;">
+        <label>Filter by domain</label>
+        <select id="domainFilter"><option value="">All domains</option></select>
+      </div>
+      <div class="field" style="flex:1;">
+        <label>Search</label>
+        <input type="text" id="questionSearch" placeholder="Search question text…">
+      </div>
+    </div>
+
+    <table class="candidate-table" id="questionsTable">
+      <thead><tr><th>#</th><th>Domain</th><th>Type</th><th>Question</th><th>Actions</th></tr></thead>
+      <tbody id="questionsTableBody"></tbody>
+    </table>
+  </div>
+
+  <script src="/static/js/setter.js"></script>
+</body>
+</html>

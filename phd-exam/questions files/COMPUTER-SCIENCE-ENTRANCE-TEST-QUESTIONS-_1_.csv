@@ -1,0 +1,446 @@
+"DHANALAKSHMI SRINIVASAN INSTITUTE OF RESEARCH AND TECHNOLOGY"
+"(Deemed to be University under section 3 of UGC Act, 1956.)"
+"PERAMBALUR - 621 212, TAMIL NADU, INDIA."
+""
+"SCHOOL OF ARTS AND SCIENCE"
+"DEPARTMENT OF COMPUTER SCIENCE"
+""
+"ENTRANCE EXAMINATION"
+"Department of Computer Science"
+"Total Questions: 50"
+"Type: Multiple Choice Questions (MCQ)"
+"Instructions: Choose the most appropriate answer. Each question carries one mark."
+""
+"A. Computer Networks"
+"1. A TCP connection is experiencing significant packet loss. The congestion window is reduced and then gradually increased using the congestion-control mechanism. Which TCP mechanism primarily controls this behavior?"
+"A. Flow control using the receiver window"
+"B. Congestion control using the congestion window"
+"C. Error detection using checksum"
+"D. Address resolution using ARP"
+"2. A network uses IPv4 with subnet mask 255.255.255.224. How many usable host addresses are available in each subnet?"
+"A. 30"
+"B. 32"
+"C. 62"
+"D. 126"
+"3. Host A has IP address 192.168.10.25/24 and wants to communicate with host B at 192.168.20.10/24. Assuming no special routing configuration, what will Host A normally do?"
+"A. Send the frame directly to Host B using ARP"
+"B. Send the packet to its default gateway"
+"C. Broadcast the packet to the entire network"
+"D. Discard the packet because the addresses are private"
+"4. In a sliding-window protocol, the sender is allowed to transmit multiple frames before receiving acknowledgements. The main advantage is:"
+"A. Elimination of error detection"
+"B. Better utilization of the communication link"
+"C. Elimination of routing"
+"D. Prevention of packet fragmentation"
+"5. A web browser establishes a TCP connection with a server. The server sends data reliably and in the correct order even though IP may deliver packets out of order. Which mechanism is primarily responsible?"
+"A. IP fragmentation"
+"B. TCP sequence numbers and acknowledgements"
+"C. DNS resolution"
+"D. Ethernet MAC addressing"
+""
+"B. Computer Graphics"
+"6. A point (x, y) is first rotated by angle ? about the origin and then translated by (tx, ty). If homogeneous transformation matrices are used, which expression correctly represents the final point?"
+""
+""
+""
+"D. R + T + P"
+"7. In a perspective projection, two parallel railway tracks appear to meet at a point in the distance. This phenomenon is primarily due to:"
+"A. Clipping"
+"B. Vanishing point"
+"C. Back-face removal"
+"D. Scan conversion"
+"8. Consider a polygon whose vertices are given in counter-clockwise order. In a standard 2D coordinate system, the signed area computed using the shoelace formula is positive. What does this indicate?"
+"A. The polygon vertices are ordered clockwise"
+"B. The polygon vertices are ordered counter-clockwise"
+"C. The polygon must be self-intersecting"
+"D. The polygon has zero area"
+"9. A line segment lies partly outside a rectangular viewing window. Which operation determines the portion that should actually be displayed?"
+"A. Scaling"
+"B. Clipping"
+"C. Rotation"
+"D. Reflection"
+"10. In the Cohen-Sutherland line-clipping algorithm, if the logical AND of the region codes of the two endpoints is non-zero, the line segment is:"
+"A. Completely inside the window"
+"B. Completely outside the window"
+"C. Partially inside the window"
+"D. Automatically transformed"
+""
+"C. Database Management Systems"
+"11. Consider relation R(A, B, C, D) with functional dependencies:"
+"A ? B"
+"B ? C"
+"A ? D"
+"Which of the following is a candidate key?"
+"A. B"
+"B. C"
+"C. A"
+"D. D"
+"12. A relation contains the functional dependencies A ? B and B ? C. A decomposition separates the relation into (A,B) and (B,C). Which important property does this decomposition satisfy if the original dependencies are preserved?"
+"A. Dependency preservation"
+"B. Loss of atomicity"
+"C. Removal of all redundancy"
+"D. Elimination of all candidate keys"
+"13. Transaction T1 reads a value written by transaction T2 before T2 commits. T2 subsequently aborts. What phenomenon has T1 encountered?"
+"A. Lost update"
+"B. Dirty read"
+"C. Phantom read"
+"D. Deadlock"
+"14. Consider the SQL query:"
+"SELECT Department, AVG(Salary)"
+"FROM Employee"
+"GROUP BY Department"
+"HAVING AVG(Salary) > 50000;"
+"The HAVING clause is evaluated primarily:"
+"A. Before grouping"
+"B. After grouping and aggregate computation"
+"C. Before the FROM clause"
+"D. Before selecting the rows"
+"15. Two transactions access the same data item. T1 reads the item, T2 updates it and commits, and then T1 reads the item again and obtains a different value. This is:"
+"A. Dirty read"
+"B. Non-repeatable read"
+"C. Lost update"
+"D. Cascading rollback"
+""
+"D. Compiler Design"
+"16. Consider the grammar:"
+"E ? E + T | T"
+"T ? T * F | F"
+"F ? (E) | id"
+"Which operator has higher precedence in this grammar?"
+"A. +"
+"B. *"
+"C. Both have equal precedence"
+"D. Precedence cannot be determined"
+"17. A compiler identifies that an expression contains a common subexpression that has already been computed and reuses the previous result. This is an example of:"
+"A. Constant folding"
+"B. Common subexpression elimination"
+"C. Dead-code elimination"
+"D. Loop unrolling"
+"18. Consider the statement:"
+"x = a + b * c"
+"During syntax analysis, the compiler constructs a parse structure representing the grammatical relationship among +, *, and operands. This structure is generally represented by a:"
+"A. Symbol table"
+"B. Parse tree/abstract syntax tree"
+"C. Literal table"
+"D. Hash table"
+"19. A grammar is said to be ambiguous if:"
+"A. It contains left recursion"
+"B. It has more than one parse tree for at least one string"
+"C. It contains epsilon productions"
+"D. It has more than one terminal symbol"
+"20. Which compiler optimization can safely replace:"
+"x = 10 * 5;"
+"with:"
+"x = 50;"
+"before runtime execution?"
+"A. Constant folding"
+"B. Register allocation"
+"C. Loop interchange"
+"D. Instruction scheduling"
+"E. Operating Systems"
+"21. Three processes arrive at time 0 with burst times 5, 3 and 8 ms respectively. Under FCFS scheduling in the given order, what is the waiting time of the second process?"
+"A. 0 ms"
+"B. 3 ms"
+"C. 5 ms"
+"D. 8 ms"
+"22. A system has four processes, each holding one resource while waiting for another resource held by another process. Which condition is directly illustrated?"
+"A. Mutual exclusion only"
+"B. Circular wait"
+"C. Preemption"
+"D. Starvation only"
+"23. A process accesses pages in the following order:"
+"1, 2, 3, 1, 4, 2, 5"
+"If the number of available page frames is insufficient, frequent page faults may occur. This phenomenon is associated with:"
+"A. Thrashing"
+"B. Spooling"
+"C. Fragmentation only"
+"D. Context switching"
+"24. A system uses Round Robin scheduling with a very large time quantum. Its behavior approaches that of:"
+"A. Shortest Job First"
+"B. FCFS"
+"C. Priority Scheduling"
+"D. Multilevel Queue"
+"25. Which situation can lead to starvation but does not necessarily imply deadlock?"
+"A. A low-priority process continuously waits while higher-priority processes are repeatedly scheduled"
+"B. Every process waits for a resource held by another"
+"C. A process terminates normally"
+"D. A process completes its I/O operation"
+""
+"F. Software Engineering"
+"26. A software team is developing a safety-critical system where requirements are expected to be stable and extensive documentation and verification are required. Which development approach is most appropriate?"
+"A. Pure prototyping"
+"B. V-Model"
+"C. Ad-hoc development"
+"D. Code-and-fix model"
+"27. A system is designed so that changes to the database layer require minimal changes to the user-interface layer. This design primarily aims to achieve:"
+"A. High coupling"
+"B. Low cohesion"
+"C. Low coupling"
+"D. Functional duplication"
+"28. A testing team selects test cases around the boundaries of valid and invalid input ranges. Which testing technique is being applied?"
+"A. Equivalence partitioning"
+"B. Boundary value analysis"
+"C. Mutation testing"
+"D. Regression testing"
+"29. A software system has modules that each perform a single, well-defined task, while dependencies between modules are minimized. This design exhibits:"
+"A. Low cohesion and high coupling"
+"B. High cohesion and low coupling"
+"C. High cohesion and high coupling"
+"D. Low cohesion and low coupling"
+"30. After modifying a payment module, previously working features such as login and account balance are tested again. This is primarily:"
+"A. Acceptance testing"
+"B. Regression testing"
+"C. Alpha testing"
+"D. Stress testing"
+""
+"G. Artificial Intelligence"
+"31. In A* search, the evaluation function is generally:"
+"A. f(n) = h(n)"
+"B. f(n) = g(n)"
+"C. f(n) = g(n) + h(n)"
+""
+"32. If the heuristic function used by A* never overestimates the actual remaining cost, the heuristic is called:"
+"A. Complete"
+"B. Admissible"
+"C. Deterministic"
+"D. Consistent only"
+"33. A machine-learning model achieves 99% accuracy on training data but only 68% on previously unseen test data. The most likely problem is:"
+"A. Underfitting"
+"B. Overfitting"
+"C. Data normalization"
+"D. High bias only"
+"34. In a binary classification problem, the classifier correctly identifies 90 positive cases out of 100 actual positive cases. What is the recall?"
+"A. 0.50"
+"B. 0.75"
+"C. 0.90"
+"D. 1.00"
+"35. A decision tree continues splitting until it perfectly classifies the training data but performs poorly on unseen data. Which approach can help reduce this problem?"
+"A. Increasing tree depth indefinitely"
+"B. Pruning the tree"
+"C. Removing all training data"
+"D. Increasing the number of irrelevant features"
+""
+"H. Digital Computer Fundamentals"
+"36. A 4-bit binary number is represented in two's complement. What decimal value does 1101 represent?"
+"A. 13"
+"B. -3"
+"C. -2"
+"D. 5"
+"37. A Boolean function is given by:"
+"F(A,B,C) = S(1,3,5,7)"
+"Which simplified expression represents the function?"
+"A. A"
+"B. B"
+"C. C"
+"D. A + B"
+"38. A combinational circuit has 8 input lines and 3 output lines that represent the binary code corresponding to the active input. Which circuit is being described?"
+"A. Decoder"
+"B. Encoder"
+"C. Multiplexer"
+"D. Demultiplexer"
+"39. Which statement correctly distinguishes a combinational circuit from a sequential circuit?"
+"A. A combinational circuit has memory; a sequential circuit does not"
+"B. Output of a combinational circuit depends only on current inputs"
+"C. Sequential circuits never use clock signals"
+"D. Combinational circuits always contain flip-flops"
+"40. A JK flip-flop has J = 1 and K = 1 at the active clock edge. What happens to the output?"
+"A. It is reset"
+"B. It is set"
+"C. It toggles"
+"D. It remains unchanged"
+""
+"I. Computer Organization"
+"41. A processor has a cache access time of 5 ns and main memory access time of 100 ns. If the cache hit ratio is 90%, ignoring other overheads, the effective access time is closest to:"
+"A. 10 ns"
+"B. 14.5 ns"
+"C. 15 ns"
+"D. 95 ns"
+"42. Which technique allows a processor to begin executing a new instruction before the previous instruction has completed all its stages?"
+"A. Paging"
+"B. Pipelining"
+"C. Interrupt masking"
+"D. Polling"
+"43. A processor uses 16-bit instructions and has 4 bits reserved for the opcode. How many bits remain for the operand/address field?"
+"A. 4"
+"B. 8"
+"C. 12"
+"D. 16"
+"44. Which statement about DMA is correct?"
+"A. CPU must execute every data transfer instruction"
+"B. DMA allows an I/O device to transfer data directly to/from memory with limited CPU intervention"
+"C. DMA eliminates the need for main memory"
+"D. DMA is used only for arithmetic operations"
+"45. In a pipelined processor, one instruction takes 5 clock cycles to pass through five stages. After the pipeline is filled, ideally one instruction can complete every:"
+"A. 5 cycles"
+"B. 4 cycles"
+"C. 2 cycles"
+"D. 1 cycle"
+""
+"J. Programming Languages"
+"46. Consider the following code:"
+"int x = 10;"
+""
+"void fun() {"
+"int x = 20;"
+"printf(""%d"", x);"
+"}"
+"Under normal lexical/static scoping, what value is printed?"
+"A. 0"
+"B. 10"
+"C. 20"
+"D. Depends only on the compiler optimization"
+"47. Which language feature allows the same interface to be implemented differently by different classes?"
+"A. Encapsulation"
+"B. Polymorphism"
+"C. Lexical analysis"
+"D. Garbage collection"
+"48. Consider a recursive function that has a base condition but creates a new stack frame for each recursive call. If the recursion depth becomes extremely large, the most likely problem is:"
+"A. Memory leak in the heap only"
+"B. Stack overflow"
+"C. Syntax error"
+"D. Deadlock"
+"49. Which statement best distinguishes compile-time polymorphism from run-time polymorphism?"
+"A. Compile-time polymorphism is resolved during compilation, while run-time polymorphism is resolved during execution"
+"B. Both are always resolved during compilation"
+"C. Both require dynamic memory allocation"
+"D. Compile-time polymorphism is possible only in procedural languages"
+"50. Consider the following function:"
+"int f(int n) {"
+"if (n <= 1)"
+"return 1;"
+"return n * f(n - 1);"
+"}"
+"What is the value of f(5)?"
+"A. 25"
+"B. 60"
+"C. 120"
+"D. 125"
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"Answer Key"
+"Q.No.
+Ans.
+Q.No.
+Ans.
+Q.No.
+Ans.
+Q.No.
+Ans.
+Q.No.
+Ans.
+1
+B
+11
+C
+21
+C
+31
+C
+41
+B
+2
+A
+12
+A
+22
+B
+32
+B
+42
+B
+3
+B
+13
+B
+23
+A
+33
+B
+43
+C
+4
+B
+14
+B
+24
+B
+34
+C
+44
+B
+5
+B
+15
+B
+25
+A
+35
+B
+45
+D
+6
+B
+16
+B
+26
+B
+36
+B
+46
+C
+7
+B
+17
+B
+27
+C
+37
+C
+47
+B
+8
+B
+18
+B
+28
+B
+29
+B
+48
+B
+9
+B
+19
+B
+30
+B
+40
+C
+49
+A
+10
+B
+20
+A
+30
+B
+40
+C
+50
+C"

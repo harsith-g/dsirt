@@ -1,0 +1,51 @@
+domain,phase,question_text,option_a,option_b,option_c,option_d,correct_option
+Research Methodology,1,The first step in the research process is generally to:,Analyse data,Identify and define the research problem,Write the conclusion,Select a journal,1
+Research Methodology,1,A good research objective should be:,Vague,Specific and measurable,Unrelated to the problem,Impossible to evaluate,1
+Research Methodology,1,SMART objectives are:,"Specific, Measurable, Achievable, Relevant and Time-bound","Simple, Modern, Accurate, Random and Tested","Scientific, Measurable, Analytical, Reliable and Technical","Specific, Mathematical, Analytical, Random and Timely",0
+Research Methodology,1,An operational definition specifies:,Theoretical history,How a variable will be measured or identified,Funding source,Publication date,1
+Research Methodology,1,Deductive reasoning proceeds from:,Specific observations to general theory,General principles to specific conclusions,Data to sampling,Results to hypothesis,1
+Research Methodology,1,Inductive reasoning proceeds from:,General principles to specific cases,Specific observations toward broader generalizations,Theory to predetermined results,Hypothesis to randomization,1
+Research Methodology,1,Exploratory study is mainly conducted when:,Problem is well established,Limited information is available,Outcome is known,No literature exists,1
+Research Methodology,1,Descriptive research primarily aims to:,Describe characteristics or phenomena systematically,Establish causality always,Manipulate all variables,Eliminate sampling,0
+Research Methodology,1,Experimental research is characterized by:,Manipulation of an independent variable,Absence of intervention,Historical data only,No comparison group,0
+Research Methodology,1,Quasi-experimental study generally lacks:,Data collection,True random allocation,An intervention,An outcome variable,1
+Research Methodology,1,Population refers to:,Only completers,Entire group to which researcher intends to generalize,Research team,Control group only,1
+Research Methodology,1,A sample is:,Entire universe,A subset selected from the population,A hypothesis,A statistical test,1
+Research Methodology,1,Sampling error is:,Difference arising because a sample rather than entire population is studied,Plagiarism error,Equipment error only,Formatting error,0
+Research Methodology,1,Convenience sampling selects participants based primarily on:,Random numbers,Ease of access,Equal probability,Stratification,1
+Research Methodology,1,Snowball sampling is useful for:,Easily accessible populations,Hard-to-reach or hidden populations,Randomized trials only,Laboratory experiments,1
+Research Methodology,1,Systematic sampling generally selects participants:,By preference,At a predetermined interval after a starting point,From one subgroup only,As volunteers only,1
+Research Methodology,1,Non-response bias occurs when:,All selected participants respond equally,Respondents differ systematically from non-respondents,Randomization succeeds,Sample is larger,1
+Research Methodology,1,External validity concerns:,Repetition by same researcher,Generalizability to other populations or settings,ANOVA calculation,Plagiarism protection,1
+Research Methodology,1,Internal validity concerns whether:,Findings are genuinely attributable to studied factors,Results generalize worldwide,Paper is published quickly,Sample is inexpensive,0
+Research Methodology,1,Selection bias occurs when:,Selection systematically affects results,Data are entered correctly,Randomization is perfect,All eligible participants are included,0
+Research Methodology,1,Likert scale is commonly used to measure:,Attitudes or agreement,Temperature,Molecular weight,Blood pressure directly,0
+Research Methodology,1,Nominal scale is characterized by:,Categories without inherent numerical order,Equal intervals and true zero,Ranked values with equal intervals,Continuous measurements only,0
+Research Methodology,1,Ordinal scale provides:,Categories with meaningful order,True zero in all cases,Equal intervals,Continuous data only,0
+Research Methodology,1,Ratio scale has:,Categories only,Equal intervals and meaningful absolute zero,Ranking without measurable differences,No numerical interpretation,1
+Research Methodology,1,A questionnaire should ideally be:,Ambiguous and lengthy,"Clear, relevant and appropriately structured",Leading and biased,Unrelated to objectives,1
+Research Methodology,1,Face validity refers to whether an instrument:,Appears to measure the intended construct,Has perfect power,Has large sample,Produces significant results,0
+Research Methodology,1,Content validity evaluates whether an instrument:,Adequately covers relevant aspects of the construct,Produces positive results,Has highest reliability,Uses random sampling,0
+Research Methodology,1,Construct validity concerns whether an instrument:,Represents the theoretical construct it intends to measure,Has low response rate,Is inexpensive,Is easy to administer,0
+Research Methodology,1,A confidence interval provides:,A range of plausible values for a population parameter,Proof hypothesis is true,Exact value of every observation,Sample size only,0
+Research Methodology,1,Increasing sample size generally results in:,Wider confidence intervals,Greater precision and narrower confidence intervals,Elimination of all bias,Automatic significance,1
+Research Methodology,1,Normal distribution is typically:,Symmetrical around its mean,Always negatively skewed,Always positively skewed,Uniform,0
+Research Methodology,1,Shapiro–Wilk test is commonly used to assess:,Normality,Correlation,Publication bias,Internal consistency,0
+Research Methodology,1,Mann–Whitney U test is commonly used for comparing:,Two independent groups,Three dependent groups only,Two categorical variables only,Four group variances,0
+Research Methodology,1,Wilcoxon signed-rank test is used for:,Paired or related observations,Independent categorical variables,More than three unrelated groups,Nominal correlation,0
+Research Methodology,1,Kruskal–Wallis test is commonly used to compare:,More than two independent groups when ANOVA assumptions are not met,Two paired observations,Two proportions only,Two correlations,0
+Research Methodology,1,Regression analysis is primarily used to:,Model relationships and predict an outcome,Calculate only median,Determine plagiarism,Select participants,0
+Research Methodology,1,"In linear regression, dependent variable is:",Outcome being predicted or explained,Always categorical,Sampling frame,Confounder only,0
+Research Methodology,1,A 95% confidence level is commonly associated with alpha:,0.50,0.10,0.05,0.01,2
+Research Methodology,1,Effect size provides information about:,Magnitude of an observed effect,Number of references,Journal impact factor,Response rate,0
+Research Methodology,1,Statistical significance does not necessarily imply:,Statistical evidence against null,Clinical or practical importance,An observed difference,A p-value,1
+Research Methodology,1,CONSORT guidelines are mainly associated with:,Randomized controlled trials,Case reports,Qualitative interviews only,Animal housing,0
+Research Methodology,1,PRISMA guidelines are mainly associated with:,Systematic reviews and meta-analyses,Randomized sampling,Case-control studies only,Laboratory protocols,0
+Research Methodology,1,DOI helps researchers to:,Uniquely identify and locate a digital scholarly publication,Calculate sample size,Measure power,Determine plagiarism automatically,0
+Research Methodology,1,A research manuscript normally contains:,Only results and references,"Introduction, Methods, Results and Discussion among major sections",Only abstract,Only literature review,1
+Research Methodology,1,Discussion section primarily aims to:,Interpret findings in relation to evidence and objectives,Present raw data without interpretation,Introduce unrelated experiments,List participant names,0
+Research Methodology,1,Scientific authorship should generally be based on:,Meaningful intellectual or scholarly contribution,Seniority alone,Financial status,Friendship,0
+Research Methodology,1,Conflict of interest refers to:,Circumstances that may improperly influence professional judgment,Any participant disagreement,Statistical error,Failed experiment,0
+Research Methodology,1,Data anonymization involves:,Removing or transforming identifying information,Publishing participant names,Increasing sample size,Changing hypothesis,0
+Research Methodology,1,Reproducibility broadly refers to the ability to:,"Obtain consistent results using the same data, methods or procedures as appropriate",Change results deliberately,Avoid statistical analysis,Remove raw data,0
+Research Methodology,1,Ultimate purpose of ethical and rigorous research is to:,Maximize publication count,Produce credible knowledge while protecting participants and maintaining integrity,Confirm personal beliefs,Avoid peer review,1

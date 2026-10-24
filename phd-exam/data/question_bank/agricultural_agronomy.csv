@@ -1,0 +1,51 @@
+domain,phase,question_text,option_a,option_b,option_c,option_d,correct_option
+Agricultural - Agronomy,2,A crop produces 8 t ha⁻¹ biological yield and 3.2 t ha⁻¹ economic yield. Its harvest index is:,25%,30%,40%,50%,2
+Agricultural - Agronomy,2,Which of the following is a Rabi crop?,Rice,Wheat,Cotton,Maize,1
+Agricultural - Agronomy,2,The major advantage of maintaining an optimum plant population is:,Elimination of all weeds,Better utilization of available growth resources,Complete elimination of irrigation,Prevention of crop maturity,1
+Agricultural - Agronomy,2,Which of the following is a C4 crop?,Wheat,Rice,Maize,Potato,2
+Agricultural - Agronomy,2,"If crop dry matter increases from 500 to 1,100 g m⁻² in 30 days, the approximate CGR is:",10 g m⁻² day⁻¹,15 g m⁻² day⁻¹,20 g m⁻² day⁻¹,30 g m⁻² day⁻¹,2
+Agricultural - Agronomy,2,The main objective of crop geometry is to:,Increase seed size,Optimize distribution of plants and resources,Increase weed population,Reduce photosynthesis,1
+Agricultural - Agronomy,2,The major advantage of zero-tillage wheat after rice is:,Increased soil disturbance,Timely establishment with reduced tillage operations,Increased puddling,Increased water requirement,1
+Agricultural - Agronomy,2,Which combination represents the basic principles of conservation agriculture?,Intensive tillage + residue burning + monocropping,Minimum soil disturbance + residue retention + crop diversification,Deep ploughing + residue removal + monocropping,Flooding + intensive tillage + residue burning,1
+Agricultural - Agronomy,2,Tillage refers to:,Harvesting the crop,Mechanical manipulation of soil,Irrigating the crop,Spraying pesticides,1
+Agricultural - Agronomy,2,Continuous intensive tillage may result in:,Increased soil organic matter,Improved soil aggregation indefinitely,Breakdown of soil aggregates and organic matter loss,Complete elimination of weeds,2
+Agricultural - Agronomy,2,"If weed dry matter in an untreated plot is 800 g m⁻² and in a treated plot is 200 g m⁻², the weed control efficiency is:",25%,50%,75%,80%,2
+Agricultural - Agronomy,2,Repeated use of the same herbicide mode of action is most likely to result in:,Increased crop diversity,Herbicide-resistant weed populations,Increased soil fertility,Improved seed germination,1
+Agricultural - Agronomy,2,Which pair consists of parasitic weeds?,Striga and Orobanche,Cyperus and Echinochloa,Amaranthus and Chenopodium,Digitaria and Portulaca,0
+Agricultural - Agronomy,2,A systemic herbicide differs from a contact herbicide because it:,Remains only on the leaf surface,Moves within the plant to susceptible tissues,Cannot be absorbed by plants,Is always selective,1
+Agricultural - Agronomy,2,Integrated Weed Management means:,Using only herbicides,Using only hand weeding,Combining different weed-management methods,Not controlling weeds,2
+Agricultural - Agronomy,2,"Soil water content at field capacity is 32%, while at permanent wilting point it is 17%. Available water is:",10%,15%,17%,32%,1
+Agricultural - Agronomy,2,"A crop produces 5,000 kg ha⁻¹ using 4,000 m³ ha⁻¹ of water. Its water-use efficiency is:",0.8 kg m⁻³,1.0 kg m⁻³,1.25 kg m⁻³,2.0 kg m⁻³,2
+Agricultural - Agronomy,2,"If irrigation water depth is 60 mm and cumulative pan evaporation is 120 mm, the IW/CPE ratio is:",0.25,0.50,1.0,2.0,1
+Agricultural - Agronomy,2,Drip irrigation supplies water mainly to the:,Leaves,Root zone,Flowers,Fruits only,1
+Agricultural - Agronomy,2,Deficit irrigation is primarily used to:,Apply unlimited water,Strategically reduce irrigation water while maintaining acceptable yield,Maintain continuous flooding,Eliminate crop transpiration,1
+Agricultural - Agronomy,2,Urea contains 46% N. How much urea is required to supply 92 kg N ha⁻¹?,100 kg,150 kg,200 kg,250 kg,2
+Agricultural - Agronomy,2,"A crop requires 120 kg N ha⁻¹. If 100 kg DAP ha⁻¹ is applied first, how much additional N must be supplied through urea?",82 kg N,102 kg N,120 kg N,138 kg N,0
+Agricultural - Agronomy,2,"For Question 22, approximately how much urea is required to supply the remaining N?",150 kg,180 kg,221.7 kg,250 kg,2
+Agricultural - Agronomy,2,DAP contains 46% P₂O₅. How much DAP is required to supply 69 kg P₂O₅ ha⁻¹?,100 kg,125 kg,150 kg,200 kg,2
+Agricultural - Agronomy,2,"If 150 kg DAP is applied, how much P₂O₅ is supplied?",46 kg,60 kg,69 kg,75 kg,2
+Agricultural - Agronomy,2,"If 150 kg DAP is applied, how much nitrogen is supplied?",18 kg,27 kg,46 kg,69 kg,1
+Agricultural - Agronomy,2,"A crop requires 100 kg N ha⁻¹. If 50 kg N is supplied through urea, how much urea is required?",50 kg,75 kg,108.7 kg,150 kg,2
+Agricultural - Agronomy,2,MOP contains 60% K₂O. How much MOP is required to supply 90 kg K₂O ha⁻¹?,100 kg,120 kg,150 kg,180 kg,2
+Agricultural - Agronomy,2,"A farmer needs 120 kg N, 60 kg P₂O₅ and 40 kg K₂O ha⁻¹. If 100 kg DAP and 50 kg MOP are applied, how much additional N is required?",82 kg,102 kg,120 kg,138 kg,0
+Agricultural - Agronomy,2,"If 200 kg urea is applied per hectare, the quantity of nitrogen supplied is:",46 kg,92 kg,100 kg,120 kg,1
+Agricultural - Agronomy,2,Split application of nitrogen is mainly practiced to:,Increase nitrogen losses,Match N supply with crop demand,Prevent nitrogen uptake,Increase leaching,1
+Agricultural - Agronomy,2,Which nutrient plays a major role in stomatal regulation and water relations?,Nitrogen,Phosphorus,Potassium,Boron,2
+Agricultural - Agronomy,2,Nitrogen deficiency usually appears first in older leaves because nitrogen is:,Immobile,Mobile within the plant,Toxic to young leaves,Fixed in chloroplasts,1
+Agricultural - Agronomy,2,Which nutrient is closely associated with ATP and energy transfer?,Nitrogen,Phosphorus,Potassium,Zinc,1
+Agricultural - Agronomy,2,"The ""4R"" nutrient management concept includes:","Right source, rate, time and place","Right crop, soil, variety and season","Right water, seed, weed and pest","Right soil, rainfall, temperature and humidity",0
+Agricultural - Agronomy,2,"If the relative yields of two crops in an intercrop are 0.70 and 0.60, the LER is:",0.42,0.70,1.00,1.30,3
+Agricultural - Agronomy,2,An LER of 1.30 indicates:,No advantage of intercropping,30% land-use advantage compared with the corresponding sole crops,30% crop failure,70% yield reduction,1
+Agricultural - Agronomy,2,Relay cropping means:,Growing only one crop,Sowing the succeeding crop before harvesting the preceding crop,Growing crops only under irrigation,Growing crops in alternate years,1
+Agricultural - Agronomy,2,The major constraint in rainfed agriculture is:,Excessive irrigation,Uncertainty and uneven distribution of rainfall,Excess fertilizer,High groundwater availability,1
+Agricultural - Agronomy,2,The inclusion of legumes in cereal-based cropping systems mainly helps through:,Biological nitrogen fixation,Increased soil erosion,Increased nitrogen deficiency,Reduced biodiversity,0
+Agricultural - Agronomy,2,Contour farming is useful mainly for:,Increasing runoff,Conserving soil and water,Increasing soil erosion,Increasing evaporation,1
+Agricultural - Agronomy,2,"If leaf area is 20,000 cm² and the ground area occupied is 10,000 cm², the LAI is:",0.5,1.0,2.0,4.0,2
+Agricultural - Agronomy,2,Harvest Index is calculated as:,Economic yield / Biological yield × 100,Biological yield / Economic yield × 100,Root yield / Shoot yield × 100,Straw yield / Root yield × 100,0
+Agricultural - Agronomy,2,Replication in an agricultural experiment is primarily used to:,Estimate experimental error and improve precision,Eliminate treatment effects,Reduce observations,Increase experimental bias,0
+Agricultural - Agronomy,2,"In an RCBD with 6 treatments and 4 replications, the number of experimental plots is:",10,18,24,30,2
+Agricultural - Agronomy,2,"If the calculated difference between two treatment means is greater than the Critical Difference (CD), the treatments are:",Significantly different,Always identical,Not comparable,Replications,0
+Agricultural - Agronomy,2,A significant genotype × treatment interaction means:,All genotypes respond similarly,Genotypes respond differently to treatments,Treatments have no effect,Genotypes have no effect,1
+Agricultural - Agronomy,2,Randomization in an agricultural experiment is used mainly to:,Reduce experimental bias,Increase soil fertility,Increase crop height,Reduce seed rate,0
+Agricultural - Agronomy,2,Agronomic efficiency of a fertilizer nutrient is calculated as:,(Yield in fertilized plot − Yield in control plot) / Nutrient applied,Nutrient applied / Yield increase,Yield in control / Nutrient applied,Total yield / Total fertilizer,0
+Agricultural - Agronomy,2,"A treatment produces 6 t ha⁻¹ grain yield compared with 4 t ha⁻¹ in the control. If 100 kg fertilizer nutrient was applied, the agronomic efficiency is:",10 kg yield increase kg⁻¹ nutrient,20 kg yield increase kg⁻¹ nutrient,40 kg yield increase kg⁻¹ nutrient,60 kg yield increase kg⁻¹ nutrient,1

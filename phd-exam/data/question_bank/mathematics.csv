@@ -1,0 +1,51 @@
+domain,phase,question_text,option_a,option_b,option_c,option_d,correct_option
+Mathematics,2,Let X be a topological space and A⊆ X. Which of the following is always true?,cl(A)=A∪A,cl(A)=A∩ A',cl(A)=X∖A,cl(A)=A′∖A,0
+Mathematics,2,Let X be a compact Hausdorff space. Then every closed subset of X is:,Connected,Compact,Dense,Open,1
+Mathematics,2,Which of the following spaces is not necessarily compact?,Every finite topological space,Every compact metric space,Every closed and bounded subset of an arbitrary topological space,Every finite discrete space,2
+Mathematics,2,A continuous image of a connected topological space is:,Compact,Hausdorff,Connected,Discrete,2
+Mathematics,2,Let X be a metric space. Which condition is equivalent to compactness?,Every sequence has a convergent subsequence whose limit belongs to X,Every sequence is convergent,Every subset of X is closed,Every Cauchy sequence is eventually constant,0
+Mathematics,2,"In a Hausdorff space X, every compact subset K⊆X is:",Open,Closed,Dense,Clopen,1
+Mathematics,2,"Let (f_n) be a sequence of functions on E such that f_n →f uniformly on E. If every f_n is continuous, then:",f is necessarily differentiable,f is necessarily continuous,f is necessarily uniformly continuous,f is necessarily bounded,1
+Mathematics,2,"Suppose f_n →f uniformly on [a,b][a,b], and each f_n is Riemann integrable. Then:",f need not be integrable,f is Riemann integrable and lim_{n→∞} ∫_a^b f_n(x)dx= ∫_a^b f(x)dx,f is differentiable,f_n ′→f ',1
+Mathematics,2,"Let f: [a,b]→R be differentiable and suppose f′(x)=0 for every x∈(a,b). Then:",f is strictly increasing,f is strictly decreasing,f is constant,f is periodic,2
+Mathematics,2,Which of the following series converges absolutely?,∑_{n=1}^∞ (-1)^n/n,∑_{n=1}^∞ 1/n^2,∑_{n=1}^∞ (-1)^n/√n,∑_{n=1}^∞ 1/n,1
+Mathematics,2,"Let f_n(x)=x^n on [0,1]. The pointwise limit of f_n is:","0 for all x∈[0,1]","1 for all x∈[0,1]",0 for 0 ≤x<1 and 1 for x=1,"x for all x∈[0,1]",2
+Mathematics,2,"If a sequence (a_n) is monotone increasing and bounded above, then:",It diverges to +∞,It converges to its supremum,It necessarily converges to zero,It is necessarily constant,1
+Mathematics,2,A fuzzy set A in a universe X is characterized by its:,"Characteristic function taking values only in {0,1}","Membership function μ_A:X→[0,1]","Probability function P:X→[0,∞)",Distance function d:X×X→R,1
+Mathematics,2,"For fuzzy sets A and B, the standard intersection is defined by:","μ_{A∩B}(x)=max{ μ_A (x), μ_B (x)}","μ_{A∩B} (x)=min{ μ_A (x), μ_B (x)}",μ_{A∩B} (x)= μ_A (x) + μ_B (x),μ_{A∩B} (x)=| μ_A (x) - μ_B (x)|,1
+Mathematics,2,A fuzzy set A is called normal if:,μ_A (x)=0 for every x,sup x∈X μ_A(x)=1,inf x∈Xμ_A(x)=1,μ_A (x) >1 for some x,1
+Mathematics,2,Which of the following is a standard t-norm?,"T(a,b)=a+b","T(a,b)=max(a,b)","T(a,b)=min(a,b)","T(a,b)=1−a− b",2
+Mathematics,2,"For a fuzzy set A, the α-cut Aα, for 0<α≤1 , is generally defined as:",{x: μ_A (x)<α},{x: μ_A (x)>α},{x: μ_A (x) ≥α},{x: μ_A (x)=0},2
+Mathematics,2,"If A and B are fuzzy sets and A⊆B, then:",μ_A (x)≥ μ_B (x) for every x,μ_A (x)≤ μ_B (x) for every x,μ_A (x)=1−μ_B (x),μ_A (x)= μ_B (x)+1,1
+Mathematics,2,A function f(z) is analytic at z_0 if:,It is continuous at z_0,It is differentiable only at z_0,It is differentiable in some neighborhood of z_0,It is bounded near z_0,2
+Mathematics,2,"If f(z)=u(x,y)+iv(x,y) is analytic, then the Cauchy–Riemann equations are:","u_x=v_x , u_y=v_y","u_x=v_y , u_y=-v_x","u_x=-v_y , u_y=v_x","u_x=u_y , v_y=v_y",1
+Mathematics,2,Evaluate the contour integral ∮_c 1/(z-a) where C is a positively oriented simple closed contour containing a.,0,1,2πi,πi,2
+Mathematics,2,"If f is entire and bounded on C, then by Liouville's theorem:",f is polynomial of degree one,f is constant,f has infinitely many zeros,f is periodic,1
+Mathematics,2,"The residue of f(z)= 1/((z-a)^2(z-b)) at the simple pole z=b, where a ≠ b, is:",1/(b-a),1/((b-a)^2),1/((a-b)^2),1/(a-b),1
+Mathematics,2,"If f is analytic inside and on a simple closed contour C, then: ∮_c f(z)dz=",2πi f(0),0,f(z),2πf(z),1
+Mathematics,2,Let X be a compact metric space and let f:X→ R be continuous. Which of the following statements is necessarily true?,f(X) is compact and ff is uniformly continuous,f(X) is open and ff is bounded,f is differentiable and uniformly continuous,f(X)is connected and ff is constant,0
+Mathematics,2,"If (a_n) is a monotone increasing sequence bounded above, then",It must diverge,It converges to its supremum,It converges to its infimum,It must be constant,1
+Mathematics,2,The series ∑_{n=1}^∞ 1/n^p converges if and only if-----,p<1,p≤1,p>1,p≥1,2
+Mathematics,2,"If ∑∣a_n∣ converges, then",∑ a_n diverges,∑a_n converges absolutely,a_n necessarily positive,a_n is necessarily monotonic,1
+Mathematics,2,"If f is continuous on the compact interval [a,b], then f",Need not be bounded,Is bounded and attains its maximum and minimum,Is necessarily differentiable,Is necessarily monotonic,1
+Mathematics,2,A uniformly continuous function on a bounded interval is,Necessarily bounded,Necessarily differentiable,Necessarily monotonic,Necessarily periodic,0
+Mathematics,2,Which statement is true?,Every continuous function is uniformly continuous on R,Every continuous function on a compact set is uniformly continuous,Every uniformly continuous function is differentiable,Every differentiable function is uniformly continuous,1
+Mathematics,2,"In a metric space, every convergent sequence is",Unbounded,Cauchy,Divergent,Monotonic,1
+Mathematics,2,Every compact subset of R is,Open and bounded,Closed and bounded,Closed and unbounded,Open and unbounded,1
+Mathematics,2,The Bolzano–Weierstrass theorem states that every bounded sequence in R,Converges,Has a convergent subsequence,Is monotonic,Is Cauchy,1
+Mathematics,2,The Weierstrass M-test is primarily used to establish,Pointwise discontinuity,Uniform convergence of a series of functions,Differentiability of every function,Compactness of a set,1
+Mathematics,2,A basis of a vector space V is a set that is,Spanning but necessarily dependent,Linearly independent but need not span V,Linearly independent and spans V,Always finite,2
+Mathematics,2,"If A is a 4×6 matrix with rank 4, then its nullity is",0,2,4,6,1
+Mathematics,2,"If λ is an eigenvalue of an invertible matrix A, then",λ=0,λ≠0,λ=1,λ<0,1
+Mathematics,2,The kernel of a linear transformation T:V→W is,Always empty,Always a subspace of V,Always equal to W,Never contains the zero vector,1
+Mathematics,2,The Gram–Schmidt process is used to,Find determinants,Find eigenvalues only,Convert a linearly independent set into an orthonormal set,Calculate matrix rank only,2
+Mathematics,2,An orthonormal set of non-zero vectors is necessarily,Linearly dependent,Linearly independent,Singular,Non-spanning,1
+Mathematics,2,"If T:V→W is linear and ker(T)={0}, then T is",Surjective,Injective,Constant,Singular,1
+Mathematics,2,"Let T:R^2→R^2 be defined by T(x,y)=(x+y,x−y).Then T is",Not linear,Linear,Constant,Non-defined,1
+Mathematics,2,"If the eigenvalues of A are 2,4,6 the trace of A is",8,10,12,48,2
+Mathematics,2,The differential equation y''-5y'+6y=0 has the complementary function:,C_1 e^{2x} + C_2 e^{3x},C_1 e^{-2x} + C_2 e^{-3x},C_1 cos2x + C_1 sin3x,C_1 e^x + C_2 e^{6x},0
+Mathematics,2,The substitution generally used for a homogeneous first-order differential equation is:,y=x+v,y=vx,y=v+x^2,x=vy^2,1
+Mathematics,2,The heat equation is classified as:,Elliptic,Parabolic,Hyperbolic,Algebraic,1
+Mathematics,2,"A PDE involving u_{xx} , u_{xy},u_{yy} but no derivatives of order higher than two is called:",First-order PDE,Second-order PDE,Third-order PDE,Zeroth-order PDE,1
+Mathematics,2,The wave equation is classified as:,Elliptic,Parabolic,Hyperbolic,Singular,2
+Mathematics,2,A PDE is called linear if:,The independent variables are linear,The dependent variable and its derivatives occur linearly,It contains only first derivatives,It has constant coefficients only,3

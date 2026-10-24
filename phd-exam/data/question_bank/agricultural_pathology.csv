@@ -1,0 +1,51 @@
+domain,phase,question_text,option_a,option_b,option_c,option_d,correct_option
+Agricultural - Pathology,2,The disease triangle is composed of:,"Host, pathogen and environment","Host, vector and soil","Pathogen, soil and fertilizer","Host, insect and temperature",0
+Agricultural - Pathology,2,Pathogenicity refers to the:,Degree of disease produced,Ability of a pathogen to cause disease,Ability of a host to resist disease,Rate of pathogen multiplication,1
+Agricultural - Pathology,2,Virulence is best defined as the:,Ability of a pathogen to survive,Ability to produce spores,Degree of pathogenicity of a pathogen,Ability to enter plant tissues,2
+Agricultural - Pathology,2,Which of the following is a sign rather than a symptom?,Chlorosis,Wilt,Necrosis,Fungal mycelium on a diseased leaf,3
+Agricultural - Pathology,2,The inoculum that initiates the first infection in a crop is called:,Secondary inoculum,Primary inoculum,Latent inoculum,Residual inoculum,1
+Agricultural - Pathology,2,The visible expression of a plant disease is known as a:,Symptom,Sign,Spore,Inoculum,0
+Agricultural - Pathology,2,"A disease caused by drought, salinity or nutrient imbalance is classified as:",Biotic disease,Infectious disease,Abiotic disorder,Parasitic disease,2
+Agricultural - Pathology,2,A pathogen that obtains nutrients from living host cells is called a:,Saprophyte,Biotroph,Decomposer,Saprobe,1
+Agricultural - Pathology,2,The vegetative body of most fungi is called:,Mycelium,Spore,Conidium,Sorus,0
+Agricultural - Pathology,2,A single fungal filament is known as a:,Conidium,Sclerotium,Hypha,Sporangium,2
+Agricultural - Pathology,2,Which structure is commonly involved in penetration of the host surface by many fungi?,Appressorium,Sclerotium,Rhizomorph,Sporangiophore,0
+Agricultural - Pathology,2,Sclerotia primarily function as:,Reproductive structures,Nutrient-absorbing structures,Long-term survival structures,Penetration structures,2
+Agricultural - Pathology,2,Conidia are generally:,Sexual spores,Asexual spores,Bacterial cells,Nematode eggs,1
+Agricultural - Pathology,2,Which genus is commonly associated with vascular wilt diseases?,Puccinia,Fusarium,Erysiphe,Albugo,1
+Agricultural - Pathology,2,Damping-off of seedlings is commonly associated with:,Pythium,Puccinia,Ustilago,Alternaria,0
+Agricultural - Pathology,2,Powdery mildew fungi are generally:,Obligate biotrophs,Obligate saprophytes,Soil-borne bacteria,Facultative saprophytes,0
+Agricultural - Pathology,2,Rust diseases of wheat are commonly caused by species of:,Fusarium,Puccinia,Rhizoctonia,Pythium,1
+Agricultural - Pathology,2,Heteroecious rust fungi require:,Two different hosts to complete their life cycle,Two pathogens on the same host,Two environmental conditions,Two types of fertilizers,0
+Agricultural - Pathology,2,Bacteria are classified as:,Eukaryotic organisms,Prokaryotic organisms,Multicellular fungi,Obligate parasites,1
+Agricultural - Pathology,2,Bacterial ooze observed from diseased tissue is considered a:,Symptom,Sign,Physiological disorder,Resistance reaction,1
+Agricultural - Pathology,2,Bacterial leaf blight of rice is caused by:,Ralstonia solanacearum,Xanthomonas oryzae pv. oryzae,Agrobacterium tumefaciens,Pseudomonas syringae,1
+Agricultural - Pathology,2,Ralstonia solanacearum is primarily responsible for:,Bacterial wilt,Citrus canker,Rice blast,Wheat rust,0
+Agricultural - Pathology,2,Crown gall disease is caused by:,Xanthomonas oryzae,Agrobacterium tumefaciens,Ralstonia solanacearu,Pseudomonas syringae,1
+Agricultural - Pathology,2,Agrobacterium causes crown gall mainly through transfer of:,RNA,T-DNA,Ribosomal proteins,Fungal spores,1
+Agricultural - Pathology,2,Citrus canker is characteristically associated with:,Root galls,Raised corky lesions,White powdery growth,Vascular browning only,1
+Agricultural - Pathology,2,Plant viruses are generally:,Free-living organisms,Obligate intracellular parasites,Saprophytic fungi,Prokaryotic organisms,1
+Agricultural - Pathology,2,Tobacco mosaic virus contains:,DNA,RNA,Both DNA and RNA,Protein as genetic material,1
+Agricultural - Pathology,2,A common symptom associated with viral diseases is:,Mosaic,Sclerotium,Bacterial ooze,Rust pustules,0
+Agricultural - Pathology,2,Which insect group is an important vector of many plant viruses?,Aphids,Termites,Earthworms,Grasshoppers,0
+Agricultural - Pathology,2,Mechanical transmission of a plant virus commonly occurs through:,Infected plant sap,Fertilizer granules,Soil nutrients,Fungal spores,0
+Agricultural - Pathology,2,Phytoplasmas are mainly associated with the:,Xylem,Phloem,Epidermis,Root cortex,1
+Agricultural - Pathology,2,Phytoplasmas are commonly transmitted by:,Leafhoppers,Earthworms,Fungi,Mites only,0
+Agricultural - Pathology,2,Root-knot nematodes belong to the genus:,Heterodera,Meloidogyne,Pratylenchus,Tylenchulus,1
+Agricultural - Pathology,2,The characteristic symptom of Meloidogyne infection is:,Leaf mosaic,Root galls,Rust pustules,Bacterial ooze,1
+Agricultural - Pathology,2,Plant-parasitic nematodes are generally:,Microscopic roundworms,Fungi,Bacteria,Protozoa,0
+Agricultural - Pathology,2,Disease incidence generally represents the:,Degree of tissue damage,Proportion of plant units affected,Amount of pathogen in soil,Number of spores produced,1
+Agricultural - Pathology,2,Disease severity refers to the:,Degree or extent of disease development,Number of diseased fields,Amount of inoculum in seed,Number of vectors present,0
+Agricultural - Pathology,2,The period between infection and the appearance of symptoms is called the:,Latent period,Incubation period,Survival period,Generation period,1
+Agricultural - Pathology,2,Secondary inoculum is inoculum that:,Initiates the first infection,Develops from primary infections and causes further infections,Remains dormant in seed,Is produced only sexually,1
+Agricultural - Pathology,2,Which environmental condition generally favors many foliar fungal diseases?,High relative humidity and prolonged leaf wetness,Very low humidity,Complete absence of moisture,Extremely dry conditions,0
+Agricultural - Pathology,2,Removal and destruction of diseased plant debris is known as:,Inoculation,Sanitation,Incubation,Sporulation,1
+Agricultural - Pathology,2,Crop rotation is particularly useful for managing pathogens that:,Survive in soil or crop residues,Are transmitted only by insects,Have no survival stage,Infect plants only through air,0
+Agricultural - Pathology,2,Bordeaux mixture is composed mainly of:,Copper sulphate and lime,Sulphur and urea,Zinc sulphate and lime,Copper chloride and urea,0
+Agricultural - Pathology,2,Seed treatment is primarily used to manage:,Seed-borne and soil-borne pathogens,Viral vectors only,Nutrient deficiencies,Insect pests only,0
+Agricultural - Pathology,2,The use of resistant varieties represents:,Chemical control,Host resistance,Physical control,Eradication,1
+Agricultural - Pathology,2,Trichoderma spp. are widely used as:,Biological control agents,Viral vectors,Insecticides,Plant-parasitic nematodes,0
+Agricultural - Pathology,2,A fungicide capable of moving within plant tissues is generally called a:,Contact fungicide,Systemic fungicide,Protective dust,Surface disinfectant,1
+Agricultural - Pathology,2,Integrated Disease Management (IDM) involves:,Use of fungicides alone,Combining compatible disease-management methods,Using resistant varieties alone,Avoiding disease monitoring,1
+Agricultural - Pathology,2,A disease that produces several successive generations of infection during one cropping season is generally called:,Monocyclic disease,Polycyclic disease,Abiotic disease,Non-infectious disease,1
+Agricultural - Pathology,2,The most sustainable approach to plant disease management is generally to:,Depend entirely on chemicals,Use only biological control,Integrate multiple compatible management strategies,Avoid preventive measures,2

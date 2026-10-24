@@ -1,0 +1,160 @@
+import csv
+import io
+import re
+import os
+import tempfile
+import subprocess
+from typing import List, Dict, Any
+import docx
+from fastapi import UploadFile
+
+from backend.models import Question, QuestionType
+
+def extract_text_fallback(file_bytes: bytes) -> List[str]:
+    """Extract text from legacy .doc files on Linux using antiword."""
+    with tempfile.NamedTemporaryFile(suffix=".doc", delete=False) as tmp:
+        tmp.write(file_bytes)
+        tmp_name = tmp.name
+
+    try:
+        result = subprocess.run(
+            ["antiword", tmp_name],
+            capture_output=True,
+            check=True
+        )
+
+        text = result.stdout.decode("utf-8", errors="replace")
+        return [line.strip() for line in text.splitlines()    finally:
+    
+            os.remove(tmp_name)
+
+def parse_docx_questions(file_bytes: bytes, domain: str, phase: int) -> List[Question]:
+    """
+    Parse MCQ questions from DOCX or legacy DOC files.
+
+    DOCX is read with python-docx.
+    Legacy DOC is converted to text by antiword.
+
+    Handles:
+    - 1. Question
+    - 14 . Question
+    - |43. Question
+    - Tamil options: அ), ஆ), இ), ஈ)
+    - Multiple options on one line
+    - Word/table formatting artifacts
+    """
+    lines = []
+
+    # First try normal DOCX parsing.
+    try:
+        document = docx.Document(io.BytesIO(file_bytes))
+
+        for p in document.paragraphs:
+            text = p.text.strip()
+            if text:
+                lines.append(text)
+
+        # Also read tables because some Word documents store questions there.
+        for table in document.tables:
+            for row in table.rows:
+                for cell in row.cells:
+                    text = cell.text.strip()
+                    if text:
+                        lines.extend(text.splitlines())
+
+    except Exception:
+        # Legacy .doc -> antiword
+        lines = extract_text_fallback(file_bytes)
+
+    # ---------------------------------------------------------
+    # Normalize Word/table formatting
+    # ---------------------------------------------------------
+    normalized = []
+
+    for raw in lines:
+        text = raw.strip()
+
+        if not text:
+            continue
+
+        # Remove leading table separators.
+        text = re.sub(r'^\|+', '', text).strip()
+
+        # Remove trailing table separators.
+        text = re.sub(r'\|+$', '', text).strip()
+
+        if not text:
+            continue
+
+        normalized.append(text)
+
+    # ---------------------------------------------------------
+    # Question / option patterns
+    # ---------------------------------------------------------
+    question_pattern = re.compile(
+        r'^\s*(\d{1,2})\s*\.\s*(.*)$'
+    )
+
+    option_pattern = re.compile(
+        r'(?:^|\s)([அஆஇஈ])\s*\)\s*'
+    )
+
+    questions_raw = {}
+    current = None
+
+    def save_current():
+        nonlocal current
+
+        if current is None:
+            return
+
+        number = current["number"]
+
+        if 1 <= number <= 50 and number not in questions_raw:
+            questions_raw[number] = current
+
+        current = None
+
+    for text in normalized:
+
+        # Ignore obvious non-question table/header artifacts.
+        if text in ("|",):
+            continue
+
+        # -----------------------------------------------------
+        # Detect question number
+        # -----------------------------------------------------
+        m_q = question_pattern.match(text)
+
+        if m_q:
+            number = int(m_q.group(1))
+            question_text = m_q.group(2).strip()
+
+            # Remove accidental leading table separator.
+            question_text = question_text.lstrip("|").strip()
+
+            # Ignore question numbers outside the actual paper.
+            if number > 50:
+                continue
+
+            save_current()
+
+            current = {
+                "number": number,
+                "question_
+        q = questions_raw[number]
+
+        options = q["options"][:4]
+
+        # If options are missing because of unusual Word
+        # formatting, keep the parser from creating garbage
+        # questions.
+        while len(options) < 4:
+            options.append("")
+
+        db_questions.append(
+            Question            order_no=number,
+                domain=domain,
+                phase=phase,
+                question_type=QuestionType.mcq,
+                question_text=q["quest

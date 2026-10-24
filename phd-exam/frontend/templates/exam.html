@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examination — Ph.D Entrance</title>
+  <meta name="description" content="Ph.D Entrance Examination — secure, proctored online examination portal.">
+  <link rel="icon" type="image/png" href="/static/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 1: Instructions (Phase 1 entry only)                     -->
+  <!-- ================================================================ -->
+  <div id="instructionsScreen" class="fullscreen-overlay" style="display:none;">
+    <div class="prose-card">
+      <div class="prose-header">
+        <img src="/static/img/logo.png" alt="DSIRT Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h1 class="prose-title">Examination Instructions</h1>
+        <p class="prose-subtitle">Ph.D Entrance Examination — Please read carefully before proceeding</p>
+      </div>
+
+      <div class="prose-body" id="instrScrollBody">
+        <h2>General Instructions</h2>
+        <ol>
+          <li>The examination consists of <strong>two phases</strong>:
+            <ul>
+              <li><strong>Phase 1</strong> — Research Methodology: 50 MCQ questions.</li>
+              <li><strong>Phase 2</strong> — Domain Specific: 50 MCQ questions from your chosen department.</li>
+            </ul>
+          </li>
+          <li>Each correct answer carries <strong>1 mark</strong>. There is <strong>no negative marking</strong>.</li>
+          <li>You must complete Phase 1 and explicitly submit it before you can start Phase 2.</li>
+          <li>Once a phase is submitted, answers in that phase <strong>cannot be changed</strong>.</li>
+          <li>The <strong>timer</strong> shown is the time remaining until the global exam end time.
+              A late start means less available time — plan accordingly.</li>
+          <li>Answers are <strong>saved automatically</strong> after every selection. Do not close the browser during the exam.</li>
+          <li>You may navigate freely within the current phase using the question navigator.</li>
+          <li>Use "Mark for Review" to flag questions you wish to revisit before submitting.</li>
+          <li>Candidates must remain in <strong>full-screen mode</strong> throughout the examination.</li>
+          <li>Your <strong>camera must remain active</strong> throughout the examination for live proctoring.</li>
+        </ol>
+
+        <h2>During the Examination</h2>
+        <ul>
+          <li>Do not switch tabs, open new windows, or minimize the browser.</li>
+          <li>Do not use the keyboard shortcut to open developer tools.</li>
+          <li>Do not attempt to copy examination content.</li>
+          <li>Right-clicking is disabled during the examination.</li>
+          <li>All violations are automatically logged and reviewed by the examination administrator.</li>
+        </ul>
+
+        <h2>Results</h2>
+        <ul>
+          <li>Results will be processed by the examination administrator.</li>
+          <li>Scores, correct answers, and result details <strong>will not be displayed</strong> to candidates.</li>
+          <li>Only the examination administrator has access to result information.</li>
+        </ul>
+      </div>
+
+      <div class="prose-footer">
+        <label class="prose-ack-label" id="instrAckLabel">
+          <input type="checkbox" id="instrAckCheck">
+          I have read and understood all the examination instructions.
+        </label>
+        <button class="btn btn-primary prose-cta" id="instrAcknowledgeBtn" disabled>
+          Continue to Rules →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 2: Violation Rules                                        -->
+  <!-- ================================================================ -->
+  <div id="violationRulesScreen" class="fullscreen-overlay" style="display:none;">
+    <div class="prose-card">
+      <div class="prose-header">
+        <img src="/static/img/logo.png" alt="DSIRT Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h1 class="prose-title">Monitoring Rules</h1>
+        <p class="prose-subtitle">The following events are monitored and recorded by the examination system</p>
+      </div>
+
+      <div class="prose-body">
+        <div class="rule-card rule-warn">
+          <div class="rule-icon">⚠️</div>
+          <div>
+            <strong>Tab Switching or Window Change</strong>
+            <p>If you navigate away from the examination tab, this is recorded as an infraction.</p>
+          </div>
+        </div>
+        <div class="rule-card rule-warn">
+          <div class="rule-icon">⚠️</div>
+          <div>
+            <strong>Exiting Full-Screen Mode</strong>
+            <p>Leaving full-screen is recorded as an infraction. You will be prompted to return.</p>
+          </div>
+        </div>
+        <div class="rule-card rule-warn">
+          <div class="rule-icon">⚠️</div>
+          <div>
+            <strong>Copying Exam Content</strong>
+            <p>Any attempt to copy text from the examination is blocked and recorded.</p>
+          </div>
+        </div>
+        <div class="rule-card rule-warn">
+          <div class="rule-icon">⚠️</div>
+          <div>
+            <strong>Right-Click Menu</strong>
+            <p>The right-click context menu is disabled throughout the examination.</p>
+          </div>
+        </div>
+        <div class="rule-card rule-info">
+          <div class="rule-icon">📹</div>
+          <div>
+            <strong>Camera Monitoring</strong>
+            <p>Your camera is active throughout the examination. The live feed is visible to the examination administrator.</p>
+          </div>
+        </div>
+
+        <div class="rule-important">
+          <strong>Important:</strong> All infractions are reviewed by a <em>human</em> administrator.
+          Violations are recorded as warnings only. The examination system does not automatically
+          submit or end your session for any infraction. Only the administrator can take such action.
+        </div>
+      </div>
+
+      <div class="prose-footer">
+        <button class="btn btn-primary prose-cta" id="violRulesNextBtn">
+          Proceed to Camera Check →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 3: System Check with LIVE camera preview                 -->
+  <!-- ================================================================ -->
+  <div id="systemCheckModal" class="syscheck-overlay">
+    <div class="syscheck-card">
+
+      <div class="syscheck-header">
+        <img src="/static/img/logo.png" alt="University Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h2 class="syscheck-title">System Check</h2>
+        <p class="syscheck-subtitle">Verify camera access before entering the examination</p>
+      </div>
+
+      <!-- Live camera preview -->
+      <div class="syscheck-camera-preview-wrap">
+        <video id="syscheckCameraPreview" class="syscheck-camera-preview" autoplay muted playsinline></video>
+        <div class="syscheck-camera-overlay" id="syscheckCameraOverlay">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5">
+            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+            <circle cx="12" cy="13" r="3"/>
+          </svg>
+          <span style="margin-top:8px; font-size:0.82rem; opacity:0.6">Requesting camera access…</span>
+        </div>
+      </div>
+
+      <!-- Camera status -->
+      <div class="syscheck-rows">
+        <div class="syscheck-row" id="syscheck-camera">
+          <div class="syscheck-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+              <circle cx="12" cy="13" r="3"/>
+            </svg>
+          </div>
+          <div class="syscheck-info">
+            <div class="syscheck-label">Camera Access</div>
+            <div class="syscheck-status pending" id="syscheckCameraStatus">Requesting access…</div>
+          </div>
+        </div>
+      </div>
+
+      <button id="syscheckRetryBtn" class="btn" style="width:100%; margin-top:8px; display:none;">
+        🔄 Retry Camera Access
+      </button>
+
+      <div class="form-error syscheck-form-error" id="syscheckError" style="display:none;"></div>
+
+      <button id="syschecCTA" class="syscheck-cta" disabled>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+        Enter Exam (Fullscreen)
+      </button>
+
+      <p class="syscheck-footnote">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; opacity:.6;">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Camera remains active throughout the exam for live proctoring. Your session is recorded.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 4: Domain Selection (Phase 2)                            -->
+  <!-- ================================================================ -->
+  <div id="domainSelectScreen" class="fullscreen-overlay" style="display:none;">
+    <div class="domain-select-card-full">
+      <div class="syscheck-header">
+        <img src="/static/img/logo.png" alt="DSIRT Logo" class="syscheck-logo" onerror="this.style.display='none'">
+        <h2 class="syscheck-title">Select Your Domain</h2>
+        <p class="syscheck-subtitle">Phase 2 — Domain Specific</p>
+      </div>
+
+      <p style="text-align:center; color:#94a3b8; font-size:0.92rem; margin-bottom:1.5rem;">
+        Choose the domain corresponding to your department.
+        <strong style="color:#e8eaf0">This selection is permanent and cannot be changed.</strong>
+      </p>
+
+      <select id="domainSelect" class="input domain-dropdown" style="font-size:1rem; padding:0.8rem 1rem;">
+        <option value="">— Select your domain —</option>
+        <optgroup label="Agricultural Sciences">
+          <option value="Agricultural - Agronomy">Agricultural — Agronomy</option>
+          <option value="Agricultural - Entomology">Agricultural — Entomology</option>
+          <option value="Agricultural - Pathology">Agricultural — Pathology</option>
+        </optgroup>
+        <option value="Bio-Science">Bio-Science</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Commerce &amp; Management Studies">Commerce &amp; Management Studies</option>
+        <option value="English">English</option>
+        <option value="Mathematics">Mathematics</option>
+        <option value="Tamil">Tamil</option>
+      </select>
+
+      <div class="form-error" id="domainError" style="margin-top:10px; display:none;"></div>
+
+      <button class="btn btn-primary" id="confirmDomainBtn" style="width:100%; margin-top:1.2rem;">
+        Confirm Selection
+      </button>
+
+      <!-- Confirmation card (shown after clicking confirm) -->
+      <div id="domainConfirmCard" style="display:none; margin-top:1.2rem; background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.25); border-radius:12px; padding:1.2rem;">
+        <p style="color:#c7d2fe; margin:0 0 12px;">
+          You have selected: <strong id="domainSelectedName" style="color:#e8eaf0;"></strong><br>
+          <span style="color:#7a7f9a; font-size:0.84rem;">This cannot be changed once confirmed.</span>
+        </p>
+        <div style="display:flex; gap:10px;">
+          <button class="btn" id="cancelDomainBtn" style="flex:1;">← Change selection</button>
+          <button class="btn btn-primary" id="confirmDomainFinalBtn" style="flex:2;">✓ Confirm &amp; Begin Phase 2</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 5: Exam Interface                                         -->
+  <!-- ================================================================ -->
+  <div class="exam-shell" id="examScreen" style="display:none;">
+
+    <!-- ===== TOPBAR ===== -->
+    <div class="exam-topbar">
+      <div class="title-block">
+        <h1>
+          <img src="/static/img/logo.png" alt="University Logo" class="exam-topbar-logo" onerror="this.style.display='none'">
+          PhD Entrance Examination
+        </h1>
+        <div class="candidate-name" id="candidateName"></div>
+      </div>
+      <div class="topbar-center" id="phaseLabel" style="font-size:0.85rem; color:#a5b4fc; font-weight:600; letter-spacing:0.04em;"></div>
+      <div class="topbar-status">
+        <!-- Violation counter (warning only — no auto-disqualification) -->
+        <div class="strike-dots" title="Infraction count (for monitoring only)">
+          <span class="label">Warnings <span id="strikeCount">0</span></span>
+          <span class="strike-dot" data-strike="1"></span>
+          <span class="strike-dot" data-strike="2"></span>
+          <span class="strike-dot" data-strike="3"></span>
+        </div>
+        <div style="text-align:right;">
+          <div class="timer" id="timerDisplay">--:--</div>
+          <div style="font-size:0.7rem; color:#7a7f9a; margin-top:2px;" id="timerEndLabel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BODY GRID ===== -->
+    <div class="exam-body">
+
+      <!-- LEFT: Question Panel -->
+      <div class="question-column">
+
+        <div class="phase-section-header" id="phase1Header">
+          <div class="phase-badge phase-badge-1">Part 1 — Research Methodology</div>
+          <div class="phase-count" id="phase1Count"></div>
+        </div>
+
+        <div class="question-card" id="questionCard">
+          <div class="question-status-bar">
+            <div class="question-meta" id="questionMeta">Loading…</div>
+            <div class="question-status-badge" id="questionStatusBadge"></div>
+          </div>
+          <div class="question-text" id="questionText">Loading question…</div>
+
+          <div id="mcqOptions" class="mcq-options"></div>
+          <div class="written-answer" id="writtenAnswerWrap" style="display:none;">
+            <textarea id="writtenAnswerInput" placeholder="Write your answer here…"></textarea>
+          </div>
+
+          <div class="question-actions">
+            <div class="left-group">
+              <button class="btn" id="prevBtn">← Previous</button>
+              <button class="btn" id="nextBtn">Next →</button>
+            </div>
+            <div class="right-group">
+              <button class="btn" id="reviewBtn">Mark for Review</button>
+              <!-- Phase-specific submit buttons -->
+              <button class="btn btn-primary" id="submitPhase1Btn" style="display:none;">Submit Phase 1 →</button>
+              <button class="btn btn-primary" id="submitPhase2Btn" style="display:none;">Submit Exam</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2 nav header (shown after domain selection) -->
+        <div style="display:none;" id="navPart2Header">
+          <div class="phase-section-header" style="margin-top:12px;">
+            <div class="phase-badge phase-badge-2">Part 2 — Domain Specific</div>
+            <div class="phase-count" id="phase2Count"></div>
+          </div>
+        </div>
+
+      </div><!-- end .question-column -->
+
+      <!-- RIGHT: Sidebar -->
+      <div class="sidebar">
+
+        <!-- Camera pip -->
+        <div class="sidebar-section webcam-section">
+          <div class="webcam-header">
+            <span class="webcam-live-dot" id="webcamLiveDot"></span>
+            <h2 style="margin:0;">Camera</h2>
+          </div>
+          <div class="webcam-pip" id="webcamPip" style="display:none;">
+            <video id="webcamVideo" autoplay muted playsinline></video>
+            <div class="pip-status" id="webcamStatus">
+              <span class="live-pulse-dot"></span>
+              Camera active — monitoring
+            </div>
+          </div>
+          <div id="webcamOffNotice" class="webcam-off-notice">Camera initializing…</div>
+        </div>
+
+        <!-- Question Navigator -->
+        <div class="sidebar-section">
+          <h2>Question navigator</h2>
+          <div class="legend">
+            <div class="legend-item"><span class="legend-swatch nav-answered-swatch"></span> Answered</div>
+            <div class="legend-item"><span class="legend-swatch nav-review-swatch"></span> Marked for review</div>
+            <div class="legend-item"><span class="legend-swatch nav-unanswered-swatch"></span> Not answered</div>
+            <div class="legend-item"><span class="legend-swatch nav-current-swatch"></span> Current</div>
+          </div>
+          <div class="nav-part-label" id="navPart1Label">Part 1</div>
+          <div class="nav-grid" id="navGrid1"></div>
+          <div class="nav-part-label" id="navPart2Label" style="display:none;">Part 2</div>
+          <div class="nav-grid" id="navGrid2" style="display:none;"></div>
+        </div>
+
+      </div><!-- end .sidebar -->
+    </div><!-- end .exam-body -->
+  </div><!-- end #examScreen -->
+
+  <!-- ================================================================ -->
+  <!--  MODAL: Violation Warning (always show warning, NEVER disqualify) -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="warningModal">
+    <div class="modal-box modal-box-strike">
+      <div class="modal-icon" style="font-size:2.5rem; margin-bottom:12px;">⚠️</div>
+      <h2>Infraction Recorded</h2>
+      <p id="warningModalBody">A monitoring event has been recorded.</p>
+      <div style="background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.2); border-radius:8px; padding:12px; margin:12px 0; font-size:0.83rem; color:#94a3b8;">
+        This event has been logged and will be reviewed by the examination administrator.
+        Your examination continues. Please maintain full-screen mode.
+      </div>
+      <button class="btn btn-primary" id="warningModalOkBtn" style="width:100%; margin-top:8px;">
+        Return to Examination →
+      </button>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  MODAL: Submit Confirmation                                       -->
+  <!-- ================================================================ -->
+  <div class="modal-overlay" id="submitConfirmModal">
+    <div class="modal-box modal-box-confirm">
+      <h2>Submit Examination?</h2>
+      <div id="submitConfirmBody" style="font-size:0.9rem; line-height:1.7; color:#94a3b8;"></div>
+      <div style="display:flex; gap:12px; margin-top:20px;">
+        <button class="btn" id="submitCancelBtn" style="flex:1;">Cancel — continue exam</button>
+        <button class="btn btn-primary" id="submitConfirmBtn" style="flex:1;">Yes, submit now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!--  SCREEN 6: Terminal (completed / expired / disqualified)          -->
+  <!-- ================================================================ -->
+  <div class="terminal-shell" id="terminalScreen" style="display:none;">
+    <div class="terminal-card" id="terminalCard">
+      <img src="/static/img/logo.png" alt="University Logo" class="terminal-logo" onerror="this.style.display='none'">
+      <h1 id="terminalTitle">Examination Ended</h1>
+      <p id="terminalBody" style="white-space:pre-line;"></p>
+    </div>
+  </div>
+
+  <style>
+    /* Fullscreen overlay for instructions / domain select */
+    .fullscreen-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg, #f1f5f9);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+    }
+    .prose-card {
+      background: var(--panel, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 720px;
+      overflow: hidden;
+      margin: auto;
+    }
+    .prose-header {
+      padding: 2rem 2rem 1.2rem;
+      border-bottom: 1px solid var(--border, #e2e8f0);
+      text-align: center;
+    }
+    .prose-title { font-size: 1.5rem; font-weight: 700; margin: 0.6rem 0 0.3rem; color: var(--text, #0f172a); }
+    .prose-subtitle { color: var(--text-muted, #475569); font-size: 0.9rem; margin: 0; }
+    .prose-body {
+      padding: 1.5rem 2rem;
+      max-height: 60vh;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-muted, #475569);
+    }
+    .prose-body h2 { font-size: 1rem; font-weight: 600; color: var(--text, #0f172a); margin: 1.2rem 0 0.5rem; }
+    .prose-body ol, .prose-body ul { padding-left: 1.4rem; }
+    .prose-body li { margin-bottom: 0.4rem; }
+    .prose-footer {
+      padding: 1.2rem 2rem;
+      border-top: 1px solid var(--border, #e2e8f0);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .prose-ack-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.88rem; color: var(--text-muted, #475569); }
+    .prose-ack-label input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent, #4f46e5); }
+    .prose-cta { padding: 0.7rem 1.8rem; white-space: nowrap; }
+
+    /* Violation rule cards */
+    .rule-card { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem; font-size: 0.88rem; line-height: 1.6; }
+    .rule-card strong { display: block; color: var(--text, #0f172a); margin-bottom: 2px; }
+    .rule-card p { margin: 0; color: var(--text-muted, #475569); }
+    .rule-card.rule-warn { background: #fffbeb; border: 1px solid #fcd34d; }
+    .rule-card.rule-info { background: var(--accent-soft, #eef2ff); border: 1px solid var(--accent-mid, #c7d2fe); }
+    .rule-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .rule-important { margin-top: 1.2rem; background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 10px; padding: 1rem; font-size: 0.85rem; color: var(--text-muted, #475569); line-height: 1.65; }
+    .rule-important strong { color: var(--success-dark, #059669); }
+
+    /* Camera preview in system check */
+    .syscheck-camera-preview-wrap {
+      position: relative;
+      width: 100%; max-width: 340px; margin: 1.2rem auto 0.8rem;
+      aspect-ratio: 4/3;
+      background: #0a0c14;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--border, #2a2d3e);
+    }
+    .syscheck-camera-preview {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 10px;
+    }
+    .syscheck-camera-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: #e8eaf0; font-size: 0.85rem;
+      transition: opacity 0.3s;
+    }
+    .syscheck-camera-preview:not([srcObject]) + .syscheck-camera-overlay,
+    .syscheck-camera-preview[srcObject="null"] + .syscheck-camera-overlay {
+      opacity: 1;
+    }
+
+    /* Domain select full card */
+    .domain-select-card-full {
+      background: var(--panel, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 18px;
+      width: 100%; max-width: 560px;
+      padding: 2rem;
+      margin: auto;
+    }
+
+    /* Exam topbar center */
+    .topbar-center { flex: 1; display: flex; align-items: center; justify-content: center; }
+    @media (max-width: 768px) {
+      .topbar-center { display: none; }
+      /* Instructions / monitoring-rules / system-check prose screens */
+      .fullscreen-overlay { padding: 0.75rem 0.5rem; }
+      .prose-header { padding: 1.25rem 1rem 1rem; }
+      .prose-title { font-size: 1.2rem; }
+      .prose-body { padding: 1rem 1.1rem; max-height: 55vh; }
+      .prose-footer { padding: 1rem; flex-direction: column; align-items: stretch; }
+      .prose-cta { width: 100%; text-align: center; }
+      .domain-select-card-full { padding: 1.25rem 1rem; }
+    }
+
+    /* Phase submit buttons */
+    #submitPhase1Btn { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+    #submitPhase2Btn { background: linear-gradient(135deg, #059669, #10b981); }
+
+    /* Warning modal icon */
+    .modal-icon { text-align: center; }
+
+    /* Strike dots — recording count only, no disqualification threshold */
+    .strike-dots .label { font-size: 0.75rem; color: #7a7f9a; }
+    .strike-dot.filled { background: #fbbf24; }
+
+    /* Timer colours */
+    .timer.low      { color: #fbbf24; }
+    .timer.critical { color: #ef4444; animation: blink-timer 1s step-start infinite; }
+    @keyframes blink-timer { 50% { opacity: 0.6; } }
+  </style>
+
+  <script>
+    // Instructions acknowledge checkbox
+    const instrCheck = document.getElementById('instrAckCheck');
+    const instrBtn   = document.getElementById('instrAcknowledgeBtn');
+    if (instrCheck && instrBtn) {
+      instrCheck.addEventListener('change', () => {
+        instrBtn.disabled = !instrCheck.checked;
+      });
+    }
+
+    // Hide camera overlay once video starts playing
+    const preview = document.getElementById('syscheckCameraPreview');
+    const overlay = document.getElementById('syscheckCameraOverlay');
+    if (preview && overlay) {
+      preview.addEventListener('play', () => { overlay.style.display = 'none'; });
+    }
+  </script>
+
+  <script src="/static/js/proctor.js"></script>
+  <script src="/static/js/exam.js"></script>
+</body>
+</html>

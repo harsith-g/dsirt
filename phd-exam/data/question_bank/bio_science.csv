@@ -1,0 +1,51 @@
+domain,phase,question_text,option_a,option_b,option_c,option_d,correct_option
+Bio-Science,2,"In eukaryotic cells, the primary function of the nuclear pore complex is to:",Replicate nuclear DNA,Regulate transport between nucleus and cytoplasm,Synthesize ribosomal RNA,Degrade nuclear proteins,1
+Bio-Science,2,A mutation changes a codon from UAU to UAA. This mutation is classified as:,Missense mutation,Silent mutation,Nonsense mutation,Frameshift mutation,2
+Bio-Science,2,Which checkpoint primarily prevents a cell with damaged DNA from entering mitosis?,G1/S checkpoint,G2/M checkpoint,Spindle checkpoint,Restriction point,1
+Bio-Science,2,"During meiosis, genetic recombination mainly occurs through:",DNA replication,Crossing over between homologous chromosomes,Cytokinesis,Chromosome condensation,1
+Bio-Science,2,Which technique is most appropriate for determining the cellular localization of a specific protein?,Southern blotting,Northern blotting,Immunofluorescence microscopy,PCR,2
+Bio-Science,2,"In a typical eukaryotic gene, the sequence immediately upstream of the transcription start site that regulates transcription is the:",Intron,Promoter,Exon,Terminator,1
+Bio-Science,2,A diploid organism has 2n = 24 chromosomes. How many chromosomes would normally be present in its gametes?,6,12,24,48,1
+Bio-Science,2,Which epigenetic modification is generally associated with transcriptional repression?,Histone acetylation,DNA methylation at promoter regions,Histone H3 acetylation,Chromatin decondensation,1
+Bio-Science,2,The major advantage of single-cell RNA sequencing over conventional RNA sequencing is that it:,Does not require RNA,Determines gene expression at individual,Completely eliminates sequencing errors,Detects only genomic DNA,1
+Bio-Science,2,"In CRISPR-Cas9 genome editing, the guide RNA primarily functions to:",Catalyze DNA cleavage,Provide ATP for Cas9,Direct Cas9 to a complementary DNA sequence,Repair the DNA double-strand break,2
+Bio-Science,2,The resting membrane potential of most neurons is primarily determined by:,Sodium permeability,Potassium permeability,Calcium permeability,Chloride synthesis,1
+Bio-Science,2,"The Na⁺/K⁺-ATPase transports, per ATP molecule:",2 Na⁺ out and 3 K⁺ in,3 Na⁺ out and 2 K⁺ in,3 Na⁺ in and 2 K⁺ out,Equal amounts of Na⁺ and K⁺,1
+Bio-Science,2,Which hormone directly increases blood glucose concentration by stimulating hepatic glycogenolysis?,Insulin,Glucagon,Calcitonin,Aldosterone,1
+Bio-Science,2,The primary site of gas exchange in the human lung is the:,Bronchus,Trachea,Alveolus,Pleura,2
+Bio-Science,2,"During skeletal muscle contraction, calcium ions bind to:",Myosin,Actin,Troponin C,Tropomyosin,2
+Bio-Science,2,The Frank-Starling law of the heart indicates that:,Heart rate is independent of venous return,Increased ventricular filling generally increases force of contraction,Blood pressure determines skeletal muscle contraction,Increased afterload always increases cardiac output,1
+Bio-Science,2,Which part of the nephron is highly permeable to water but relatively impermeable to solutes?,Descending limb of loop of Henle,Ascending limb of loop of Henle,Distal convoluted tubule,Thick ascending limb,0
+Bio-Science,2,ADH increases water reabsorption mainly by:,Increasing sodium excretion,Inserting aquaporin-2 channels into duct membranes,Inhibiting aldosterone secretion,Blocking renal water channels,1
+Bio-Science,2,The Bohr effect describes the influence of:,CO₂ and H⁺ on hemoglobin oxygen affinity,Sodium on cardiac contraction,Calcium on bone formation,Glucose on insulin synthesis,0
+Bio-Science,2,"Which division of the autonomic nervous system is predominantly responsible for the ""fight-or-flight"" response?",Parasympathetic,Sympathetic,Somatic,Enteric,1
+Bio-Science,2,"In PCR, the primary function of the denaturation step is to:",Synthesize primers,Separate the two DNA strands,Join DNA fragments,Degrade DNA polymerase,1
+Bio-Science,2,Which enzyme is commonly used to synthesize complementary DNA from mRNA?,DNA ligase,Reverse transcriptase,RNA polymerase,Restriction endonuclease,1
+Bio-Science,2,"In recombinant DNA technology, restriction enzymes are primarily used to:",Synthesize proteins,Cut DNA at specific recognition sequences,Amplify RNA,Translate mRNA,1
+Bio-Science,2,A plasmid vector used for bacterial cloning should ideally contain:,An origin of replication and selectable marker,Only a promoter,Only an intron,Ribosomal RNA genes only,0
+Bio-Science,2,Which method is most suitable for quantifying gene expression in real time?,Conventional PCR,RT-qPCR,Southern blotting,SDS-PAGE,1
+Bio-Science,2,"In Western blotting, proteins are primarily separated according to molecular size using:",Agarose gel electrophoresis,SDS-PAGE,Paper chromatography,DNA sequencing,1
+Bio-Science,2,A major advantage of monoclonal antibodies is that they:,Recognize multiple unrelated epitopes,Are produced by a single antibody-producing clone and recognize a specific epitope,Cannot be produced in vitro,Are always polyclonal,1
+Bio-Science,2,Which expression system is widely used for high-level production of recombinant proteins?,Escherichia coli,Human erythrocytes,Mature neurons,Plant chloroplasts only,0
+Bio-Science,2,"In plant biotechnology, Agrobacterium tumefaciens is commonly used because it naturally possesses:",Ribosomal DNA,Ti plasmid-mediated DNA transfer capability,CRISPR-Cas12,Reverse transcriptase,1
+Bio-Science,2,Which technology is most appropriate for identifying genome-wide DNA sequence variations?,ELISA,Next-generation sequencing,Western blotting,Gram staining,1
+Bio-Science,2,Which component is characteristic of Gram-positive bacterial cell walls?,Outer membrane containing LPS,Thick peptidoglycan layer,Chitin,Cellulose,1
+Bio-Science,2,Lipopolysaccharide is a major component of the:,Gram-positive cell wall,Gram-negative outer membrane,Fungal cell wall,Archaeal membrane,1
+Bio-Science,2,Which bacterial structure is primarily associated with motility?,Capsule,Flagellum,Ribosome,Plasmid,1
+Bio-Science,2,Endospores are particularly resistant to:,Nutrients,Heat and environmental stress,Protein synthesis,DNA replication,1
+Bio-Science,2,Which method is generally used to sterilize heat-stable laboratory glassware?,Autoclaving,Membrane filtration,UV exposure only,Pasteurization,0
+Bio-Science,2,The generation time of a bacterial population refers to the time required for:,DNA degradation,One complete cell division,Protein denaturation,Spore germination only,1
+Bio-Science,2,Quorum sensing enables bacteria to:,Detect DNA mutations only,Coordinate gene expression according to population density,Prevent all antibiotic resistance,Eliminate extracellular signaling,1
+Bio-Science,2,Which bacterial mechanism can directly transfer antibiotic-resistance genes between cells through cell-to-cell contact?,Transformation,Transduction,Conjugation,Mutation only,2
+Bio-Science,2,"In bacterial transformation, bacteria acquire:",Naked extracellular DNA,Viral proteins,Only RNA molecules,Ribosomal subunits,0
+Bio-Science,2,Which method is most useful for identifying microorganisms based on conserved ribosomal RNA gene sequences?,16S rRNA gene sequencing,Western blotting,ELISA,SDS-PAGE,0
+Bio-Science,2,The enzyme responsible for converting glucose-6-phosphate to fructose-6-phosphate during glycolysis is:,Hexokinase,Phosphoglucose isomerase,Phosphofructokinase,Aldolase,1
+Bio-Science,2,The rate-limiting enzyme of glycolysis is generally:,Hexokinase,Phosphofructokinase-1,Pyruvate kinase,Lactate dehydrogenase,1
+Bio-Science,2,The final electron acceptor in the mitochondrial electron transport chain is:,NAD⁺,Carbon dioxide,Oxygen,Pyruvate,2
+Bio-Science,2,Which molecule directly provides energy for most cellular processes?,ATP,DNA,Urea,Cholesterol,0
+Bio-Science,2,Competitive inhibition of an enzyme generally results in:,Decreased Km and decreased Vmax,Increased apparent Km with no change in Vmax,Decreased Km with unchanged Vmax,Increased Vmax,1
+Bio-Science,2,"An enzyme has a lower Km compared with another enzyme for the same substrate. Under Michaelis-Menten conditions, this generally indicates:",Lower apparent substrate affinity,Higher apparent substrate affinity,Complete enzyme inhibition,Higher molecular weight,1
+Bio-Science,2,Which amino acid contains a thiol (-SH) group?,Methionine,Cysteine,Serine,Tyrosine,1
+Bio-Science,2,The peptide bond between amino acids is formed between:,Two amino groups,Two carboxyl groups,Amino and carboxyl groups,Two hydroxyl groups,2
+Bio-Science,2,Which technique is most appropriate for determining the three-dimensional structure of a purified protein at high resolution?,X-ray crystallography,Gram staining,Agarose gel electrophoresis,PCR,0
+Bio-Science,2,A researcher observes that an enzyme retains its Vmax but requires a higher substrate concentration to reach half-maximal velocity after addition of an inhibitor. The inhibitor is most consistent with:,Competitive inhibition,Non-competitive inhibition,Irreversible inhibition,Uncompetitive inhibition,0
